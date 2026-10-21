@@ -1,0 +1,14 @@
+{
+  "name": "sandeep-yadav-ai-portfolio",
+  "version": "1.0.0",
+  "description": "Sandeep Yadav Software Engineer Personal Website with AI Assistant and Assignment Solver",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "openai": "^6.0.0"
+  }
+}
