@@ -3,56 +3,207 @@ import OpenAI from "openai";
 import crypto from "node:crypto";
 
 const app = express();
+
 const port = Number(process.env.PORT || 3000);
 const model = process.env.OPENAI_MODEL || "gpt-6-luna";
+
 const client = process.env.OPENAI_API_KEY
-  ? new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
+  ? new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY
+    })
   : null;
+
+/* =========================
+   CORS
+========================= */
+
+app.use((req, res, next) => {
+  res.header(
+    "Access-Control-Allow-Origin",
+    "https://sandeep-yadav-webside.onrender.com"
+  );
+
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+
+  res.header(
+    "Access-Control-Allow-Methods",
+    "GET, POST, OPTIONS"
+  );
+
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(204);
+  }
+
+  next();
+});
+
+/* =========================
+   EXPRESS
+========================= */
 
 app.use(express.json({ limit: "32kb" }));
 app.use(express.static("."));
 
+/* =========================
+   AI SESSION STORAGE
+========================= */
+
 const sessions = new Map();
 const MAX_MESSAGES = 12;
 
+/* =========================
+   SANDEEP PROFILE
+========================= */
+
 const profile = `
-You are Sandeep AI, the friendly portfolio assistant for Sandeep Yadav.
-Only present information about Sandeep that is included here:
-Name: Sandeep Yadav.
-Profession: Software Engineer, Web Developer, Technology Enthusiast.
-Education: B.Tech, Dr. A.P.J. Abdul Kalam Technical University (AKTU), Uttar Pradesh.
-Schooling: Classes 1-8 at Saraswati Gyan Mandir, NCERT curriculum. Class X: UP Board, 66.33%. Class XII: UP Board, 64.80%.
-Skills: HTML5, CSS3, JavaScript, PHP, MySQL, Python, Java, C, C++, Git, GitHub, Responsive Design, REST/API basics, VS Code, XAMPP, phpMyAdmin.
-Projects: Task Management Dashboard; Login & Registration System; Responsive Web Projects.
-Links: GitHub https://github.com/sky811572 ; LinkedIn https://www.linkedin.com/in/sandeep8115 ; Instagram https://www.instagram.com/sandeep_yadav_0.7_/ ; Linktree https://linktr.ee/sandeep_yadav_07 ; WhatsApp https://wa.me/918115728884 ; Email sky811572@gmail.com.
-Answer naturally in the user's language. If the user asks for facts not listed here, say you don't have that information rather than inventing it.
-Keep portfolio answers concise, helpful and professional. For hiring questions, encourage the visitor to contact Sandeep through the listed contact links.
+You are Sandeep AI, the friendly AI assistant for Sandeep Yadav's personal portfolio website.
+
+Only provide information about Sandeep Yadav that is included in this profile.
+Do not invent facts, experience, companies, achievements, education details,
+projects, salary, job history, or personal information.
+
+PROFILE:
+
+Name: Sandeep Yadav
+
+Profession:
+Software Engineer | Web Developer | Technology Enthusiast
+
+Education:
+B.Tech from Dr. A.P.J. Abdul Kalam Technical University (AKTU), Uttar Pradesh.
+
+Technical Skills:
+HTML5
+CSS3
+JavaScript
+PHP
+MySQL
+Python
+Java
+C
+C++
+Git
+GitHub
+Responsive Web Design
+REST/API Basics
+Visual Studio Code
+XAMPP
+phpMyAdmin
+
+Professional Focus:
+Web Development
+Software Engineering
+Backend & Database
+Continuous Learning and Growth
+
+Projects:
+1. Task Management Dashboard
+2. Login & Registration System
+3. Responsive Web Projects
+
+Education Journey:
+2009 – 2015: Classes 1–8, Saraswati Gyan Mandir, NCERT Curriculum
+2017: Class X, High School, UP Board — 66.33%
+2021: Class XII, Intermediate, UP Board — 64.80%
+B.Tech: Dr. A.P.J. Abdul Kalam Technical University (AKTU)
+
+Contact:
+Email: sky811572@gmail.com
+WhatsApp: +91 8115728884
+LinkedIn: https://www.linkedin.com/in/sandeep8115
+Instagram: https://www.instagram.com/sandeep_yadav_0.7_/
+GitHub: https://github.com/sky811572
+Linktree: https://linktr.ee/sandeep_yadav_07
+
+Website:
+https://sandeep-yadav-webside.onrender.com
+
+GitHub username:
+sky811572
+
+GitHub repository:
+sky811572/Sandeep.yadav
+
+BEHAVIOR:
+
+Be friendly, professional and concise.
+
+If someone asks "Who is Sandeep?" explain his profession,
+education, technical skills and professional focus.
+
+If someone asks about skills, list the relevant technical skills.
+
+If someone asks about projects, explain the projects listed above.
+
+If someone asks for contact information, provide the relevant contact
+information from this profile.
+
+If someone asks something that is not present in this profile,
+say that the information is not available in Sandeep's portfolio profile.
+
+Never claim that Sandeep has worked for a company unless that company
+is explicitly listed in this profile.
+
+Never invent salary, job experience, certifications, awards or achievements.
 `;
+
+/* =========================
+   HEALTH CHECK
+========================= */
+
+app.get("/api/health", (req, res) => {
+  res.json({
+    status: "ok",
+    aiConfigured: Boolean(client),
+    model
+  });
+});
+
+/* =========================
+   AI CHAT
+========================= */
 
 app.post("/api/chat", async (req, res) => {
   try {
-    if (!process.env.OPENAI_API_KEY) {
-      return res.status(503).json({ error: "OPENAI_API_KEY is not configured on the server." });
+    if (!client) {
+      return res.status(503).json({
+        error: "OPENAI_API_KEY is not configured."
+      });
     }
 
-    const message = typeof req.body?.message === "string"
-      ? req.body.message.trim()
-      : "";
+    const message =
+      typeof req.body?.message === "string"
+        ? req.body.message.trim()
+        : "";
 
-    let sessionId = typeof req.body?.sessionId === "string"
-      ? req.body.sessionId.trim()
-      : "";
+    const sessionId =
+      typeof req.body?.sessionId === "string" &&
+      req.body.sessionId.trim()
+        ? req.body.sessionId.trim()
+        : crypto.randomUUID();
 
-    if (!message || message.length > 1200) {
-      return res.status(400).json({ error: "Invalid message." });
+    if (!message) {
+      return res.status(400).json({
+        error: "Message is required."
+      });
     }
 
-    if (!sessionId || sessionId.length > 120) {
-      sessionId = crypto.randomUUID();
+    if (message.length > 2000) {
+      return res.status(400).json({
+        error: "Message is too long."
+      });
     }
 
     let history = sessions.get(sessionId) || [];
-    history.push({ role: "user", content: message });
+
+    history.push({
+      role: "user",
+      content: message
+    });
+
     history = history.slice(-MAX_MESSAGES);
 
     const response = await client.responses.create({
@@ -61,21 +212,41 @@ app.post("/api/chat", async (req, res) => {
       input: history
     });
 
-    const reply = response.output_text || "I couldn't generate a response right now.";
+    const reply =
+      response.output_text ||
+      "I couldn't generate a response right now.";
 
-    history.push({ role: "assistant", content: reply });
-    sessions.set(sessionId, history.slice(-MAX_MESSAGES));
+    history.push({
+      role: "assistant",
+      content: reply
+    });
 
-    res.json({ reply, sessionId });
+    sessions.set(
+      sessionId,
+      history.slice(-MAX_MESSAGES)
+    );
+
+    res.json({
+      reply,
+      sessionId
+    });
+
   } catch (error) {
     console.error("AI error:", error);
-    res.status(500).json({ error: "AI assistant is temporarily unavailable." });
+
+    res.status(500).json({
+      error: "AI assistant is temporarily unavailable."
+    });
   }
 });
 
+/* =========================
+   ASSIGNMENT BATCH API
+========================= */
+
 app.post("/api/assignment/batch", async (req, res) => {
   try {
-    if (!process.env.OPENAI_API_KEY) {
+    if (!client) {
       return res.status(503).json({
         error: "OPENAI_API_KEY is not configured."
       });
@@ -85,12 +256,18 @@ app.post("/api/assignment/batch", async (req, res) => {
       ? req.body.questions.slice(0, 100)
       : [];
 
-    const style = ["concise", "detailed", "exam"].includes(req.body?.style)
+    const style = [
+      "concise",
+      "detailed",
+      "exam"
+    ].includes(req.body?.style)
       ? req.body.style
       : "concise";
 
     if (!questions.length) {
-      return res.status(400).json({ error: "No questions supplied." });
+      return res.status(400).json({
+        error: "No questions supplied."
+      });
     }
 
     const instruction =
@@ -101,14 +278,37 @@ app.post("/api/assignment/batch", async (req, res) => {
         : "Give a concise, correct answer. Avoid unnecessary detail.";
 
     const numbered = questions
-      .map((q, i) => `${i + 1}. ${String(q).slice(0, 5000)}`)
+      .map(
+        (q, i) =>
+          `${i + 1}. ${String(q).slice(0, 5000)}`
+      )
       .join("\n");
 
     const response = await client.responses.create({
       model,
-      instructions: `You are an assignment answer engine. ${instruction}
-Return ONLY valid JSON: {"answers":[{"index":1,"answer":"..."},...]}.
-Answer every numbered question in order. Do not invent facts. If a question is ambiguous, state the reasonable assumption briefly.`,
+      instructions: `
+You are an assignment answer engine.
+
+${instruction}
+
+Return ONLY valid JSON:
+
+{
+  "answers": [
+    {
+      "index": 1,
+      "answer": "..."
+    }
+  ]
+}
+
+Answer every numbered question in order.
+
+Do not invent facts.
+
+If a question is ambiguous,
+state the reasonable assumption briefly.
+`,
       input: numbered
     });
 
@@ -118,7 +318,8 @@ Answer every numbered question in order. Do not invent facts. If a question is a
       parsed = JSON.parse(response.output_text);
     } catch {
       return res.status(502).json({
-        error: "The AI returned an invalid batch format. Retry this batch."
+        error:
+          "The AI returned an invalid batch format. Retry this batch."
       });
     }
 
@@ -126,21 +327,36 @@ Answer every numbered question in order. Do not invent facts. If a question is a
       ? parsed.answers
       : [];
 
-    const answers = questions.map((q, i) => ({
-      question: q,
-      answer: items[i]?.answer || "No answer returned."
+    const answers = questions.map((question, index) => ({
+      question,
+      answer:
+        items[index]?.answer ||
+        "No answer returned."
     }));
 
-    res.json({ answers });
+    res.json({
+      answers
+    });
 
   } catch (error) {
-    console.error("Assignment batch error:", error);
+    console.error(
+      "Assignment batch error:",
+      error
+    );
+
     res.status(500).json({
-      error: "Assignment batch temporarily failed."
+      error:
+        "Assignment batch temporarily failed."
     });
   }
 });
 
+/* =========================
+   START SERVER
+========================= */
+
 app.listen(port, () => {
-  console.log(`Sandeep AI server running on port ${port}`);
+  console.log(
+    `Sandeep AI server running on port ${port}`
+  );
 });
