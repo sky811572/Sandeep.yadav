@@ -3,425 +3,516 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Sandeep Yadav — Software Engineer, Web Developer and Technology Enthusiast.">
-<meta name="author" content="Sandeep Yadav">
-<meta name="robots" content="index, follow">
-<meta property="og:title" content="Sandeep Yadav | Software Engineer">
-<meta property="og:description" content="Portfolio of Sandeep Yadav — Software Engineer & Web Developer.">
-<meta property="og:image" content="profile.png">
-<title>Sandeep Yadav — Software Engineer</title>
-
+<meta name="description" content="Sandeep Yadav — Software Engineer, Web Developer and Technology Enthusiast">
+<title>Sandeep Yadav | Software Engineer</title>
 <style>
-:root{
-  --bg:#050816;--bg2:#0b1023;--card:rgba(15,22,45,.72);
-  --text:#f7fbff;--muted:#aab6cc;--line:rgba(255,255,255,.11);
-  --cyan:#00e5ff;--blue:#3b82f6;--violet:#8b5cf6;--pink:#ec4899;
-  --green:#35e39a;--max:1180px;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;scroll-padding-top:82px}
-body{
-  font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
-  color:var(--text);background:
-  radial-gradient(800px 500px at 8% 5%,rgba(0,229,255,.14),transparent 65%),
-  radial-gradient(800px 500px at 92% 15%,rgba(139,92,246,.15),transparent 65%),
-  radial-gradient(900px 600px at 50% 95%,rgba(236,72,153,.08),transparent 65%),var(--bg);
-  line-height:1.6;overflow-x:hidden;
-}
-body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;
-background-image:linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);
-background-size:46px 46px;mask-image:linear-gradient(to bottom,black,transparent 90%)}
-a{color:inherit;text-decoration:none}
-button{font:inherit}
-.container{width:min(var(--max),calc(100% - 36px));margin:auto}
-.nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(5,8,22,.72);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
-.nav-in{height:74px;display:flex;align-items:center;justify-content:space-between}
-.logo{font-size:1.3rem;font-weight:900}.logo span{color:var(--cyan)}
-.navlinks{display:flex;gap:24px}.navlinks a{color:var(--muted);font-size:.88rem;font-weight:750}.navlinks a:hover{color:var(--cyan)}
-.menu{display:none;width:42px;height:42px;border:1px solid var(--line);background:var(--card);color:white;border-radius:12px}
-.hero{min-height:100vh;padding:130px 0 80px;display:grid;place-items:center}
-.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:55px;align-items:center}
-.status{display:inline-flex;align-items:center;gap:8px;padding:8px 13px;border-radius:99px;border:1px solid rgba(53,227,154,.25);color:#8bf1c4;background:rgba(53,227,154,.07);font-size:.78rem;font-weight:800}
-.status i{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 14px var(--green)}
-h1{font-size:clamp(3.1rem,7vw,6.3rem);line-height:.94;letter-spacing:-.065em;margin:23px 0 18px}
-.gradient{background:linear-gradient(110deg,var(--cyan),var(--violet),var(--pink),var(--cyan));background-size:220% auto;-webkit-background-clip:text;background-clip:text;color:transparent}
-.role{font-size:clamp(1.15rem,2.5vw,1.55rem);font-weight:800;color:var(--muted)}
-.hero-copy{max-width:700px;color:var(--muted);font-size:1.05rem;margin-top:17px}
-.buttons{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
-.btn{padding:13px 18px;border-radius:14px;border:1px solid var(--line);display:inline-flex;align-items:center;gap:8px;font-weight:800;transition:.25s}
-.btn:hover{transform:translateY(-3px)}.primary{border:0;color:#fff;background:linear-gradient(135deg,var(--blue),var(--violet));box-shadow:0 15px 40px rgba(59,130,246,.25)}
-.ghost{background:var(--card)}
-.tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}.tag{padding:7px 11px;border:1px solid var(--line);border-radius:999px;color:var(--muted);font-size:.77rem;font-weight:750;background:rgba(255,255,255,.035)}
-.visual{display:grid;place-items:center}.orbit{width:min(410px,78vw);aspect-ratio:1;position:relative;display:grid;place-items:center;border-radius:50%}
-.orbit:before,.orbit:after{content:"";position:absolute;border-radius:50%;inset:0;border:1px solid rgba(0,229,255,.25);transform:rotate(20deg) scale(1.05)}
-.orbit:after{inset:14px;border-color:rgba(139,92,246,.28);transform:rotate(-25deg) scale(1.05)}
-.photo{width:78%;height:78%;padding:7px;border-radius:50%;background:conic-gradient(var(--cyan),var(--violet),var(--pink),var(--cyan));box-shadow:0 0 100px rgba(0,229,255,.2);z-index:2}
-.photo img{width:100%;height:100%;object-fit:cover;border-radius:50%;border:7px solid var(--bg)}
-.badge{position:absolute;z-index:3;padding:11px 14px;border:1px solid var(--line);background:var(--card);backdrop-filter:blur(15px);border-radius:15px;box-shadow:0 20px 60px rgba(0,0,0,.3);font-size:.78rem;font-weight:800}.badge b{display:block;font-size:1.05rem}.badge small{color:var(--muted)}.one{top:10%;right:0}.two{bottom:12%;left:0}
-section{padding:95px 0}.eyebrow{color:var(--cyan);font-size:.73rem;font-weight:900;letter-spacing:2px;text-transform:uppercase}.head{margin-bottom:30px}.head h2{font-size:clamp(2.1rem,4vw,3.3rem);line-height:1.05;letter-spacing:-.04em;margin:8px 0}.head p{color:var(--muted);max-width:720px}
-.card{background:linear-gradient(145deg,var(--card),rgba(255,255,255,.025));border:1px solid var(--line);border-radius:25px;box-shadow:0 25px 80px rgba(0,0,0,.25);backdrop-filter:blur(18px)}
-.pad{padding:28px}.card h3{margin-bottom:8px}.muted{color:var(--muted)}
-.about-grid,.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}.stat{text-align:center;padding:20px 10px;background:rgba(255,255,255,.035);border:1px solid var(--line);border-radius:18px}.stat strong{display:block;font-size:2rem;background:linear-gradient(90deg,var(--cyan),var(--violet));-webkit-background-clip:text;color:transparent}.stat span{font-size:.74rem;color:var(--muted);font-weight:700}
-.skill-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.skill{padding:16px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.035)}.skilltop{display:flex;justify-content:space-between;font-weight:800}.skilltop small{color:var(--muted)}.bar{height:7px;background:rgba(255,255,255,.08);border-radius:99px;margin-top:10px;overflow:hidden}.bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--cyan),var(--violet),var(--pink))}
-.techs{display:flex;flex-wrap:wrap;gap:9px}.tech{padding:9px 12px;border-radius:12px;border:1px solid rgba(0,229,255,.17);background:rgba(0,229,255,.05);font-size:.8rem;font-weight:800}
-.projects{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.project{padding:26px;position:relative;overflow:hidden;transition:.25s}.project:hover{transform:translateY(-7px);border-color:rgba(0,229,255,.35)}.project .num{color:var(--cyan);font-size:.7rem;font-weight:900;letter-spacing:2px}.project h3{margin:12px 0 8px}.project p{color:var(--muted);font-size:.9rem;min-height:88px}.project-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:15px}.project-tags span{font-size:.68rem;padding:5px 8px;border-radius:8px;background:rgba(255,255,255,.05);color:var(--muted)}
-.focus{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}.focus .card{padding:23px}.ico{font-size:1.6rem}.focus h3{margin:10px 0 5px}.focus p{font-size:.84rem;color:var(--muted)}
-.journey{border-left:2px solid rgba(0,229,255,.22);padding-left:26px;display:grid;gap:25px}.journey-item{position:relative}.journey-item:before{content:"";position:absolute;width:12px;height:12px;border-radius:50%;background:var(--cyan);left:-33px;top:7px;box-shadow:0 0 0 6px rgba(0,229,255,.08),0 0 18px rgba(0,229,255,.4)}.year{color:var(--cyan);font-weight:900;letter-spacing:.03em}.journey-item h3{margin:4px 0}.journey-item p{color:var(--muted)}
-.contact-list{display:grid;gap:10px;margin-top:17px}.contact-item{padding:14px;border:1px solid var(--line);border-radius:15px;background:rgba(255,255,255,.035)}.contact-item b{font-size:.83rem}.contact-item span{display:block;color:var(--muted);font-size:.78rem;word-break:break-word}.social{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}.social a{padding:9px 11px;border:1px solid var(--line);border-radius:11px;background:rgba(255,255,255,.035);font-size:.78rem;font-weight:800}
-footer{padding:35px 0 50px;border-top:1px solid var(--line);color:var(--muted);font-size:.8rem}.foot{display:flex;justify-content:space-between;gap:15px}
-#top{position:fixed;right:18px;bottom:18px;display:none;width:46px;height:46px;border-radius:14px;border:1px solid var(--line);background:var(--card);color:#fff;z-index:900}
+:root{--bg:#060714;--panel:rgba(18,21,45,.66);--text:#f6f7ff;--muted:#a9afd0;--cyan:#35e8ff;--violet:#8b5cf6;--pink:#ff4fd8;--line:rgba(255,255,255,.1);--shadow:0 25px 80px rgba(0,0,0,.35)}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;background:radial-gradient(circle at 15% 10%,#17215a 0,transparent 28%),radial-gradient(circle at 90% 20%,#3a1450 0,transparent 25%),var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;background:linear-gradient(120deg,transparent 0 45%,rgba(53,232,255,.025) 50%,transparent 55%);z-index:-1}
+a{color:inherit;text-decoration:none}.container{width:min(1160px,92%);margin:auto}.glass{background:var(--panel);border:1px solid var(--line);backdrop-filter:blur(18px);box-shadow:var(--shadow);border-radius:24px}
+nav{position:fixed;top:16px;left:50%;transform:translateX(-50%);width:min(1120px,92%);z-index:20;padding:13px 18px;display:flex;align-items:center;justify-content:space-between;border:1px solid var(--line);background:rgba(7,9,24,.72);backdrop-filter:blur(20px);border-radius:18px}
+.logo{font-weight:900;letter-spacing:.5px}.logo span{color:var(--cyan)}.links{display:flex;gap:22px}.links a{color:#c9cde5;font-size:14px}.links a:hover{color:white}.menu{display:none;background:none;border:0;color:white;font-size:26px}
+.hero{min-height:100vh;display:grid;place-items:center;padding:130px 0 80px}.hero-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:55px;align-items:center}.eyebrow{display:inline-flex;padding:7px 12px;border-radius:999px;background:rgba(53,232,255,.08);border:1px solid rgba(53,232,255,.25);color:var(--cyan);font-size:13px;margin-bottom:18px}
+h1{font-size:clamp(46px,7vw,88px);line-height:.98;letter-spacing:-4px;margin-bottom:20px}h1 .grad{background:linear-gradient(90deg,var(--cyan),#9b7bff,var(--pink));-webkit-background-clip:text;color:transparent}
+.hero p{color:var(--muted);font-size:18px;max-width:650px}.actions{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap}.btn{padding:12px 18px;border-radius:13px;border:1px solid var(--line);font-weight:800;font-size:14px}.primary{background:linear-gradient(90deg,var(--cyan),var(--violet));color:#050611;border:0}.secondary{background:rgba(255,255,255,.04)}
+.orbit{width:330px;height:330px;border-radius:50%;position:relative;margin:auto;display:grid;place-items:center;background:radial-gradient(circle,rgba(139,92,246,.24),transparent 60%);border:1px solid rgba(53,232,255,.22);box-shadow:0 0 90px rgba(53,232,255,.15)}
+.orbit:before,.orbit:after{content:"";position:absolute;border:1px solid rgba(255,255,255,.14);border-radius:50%;inset:25px;transform:rotate(25deg) scaleX(1.5)}.orbit:after{inset:50px;transform:rotate(-35deg) scaleX(1.35)}
+.avatar{width:155px;height:155px;border-radius:50%;display:grid;place-items:center;font-size:48px;font-weight:900;background:linear-gradient(145deg,#111632,#27115a);border:2px solid rgba(255,255,255,.18);box-shadow:0 0 45px rgba(139,92,246,.45)}
+section{padding:90px 0}.section-head{margin-bottom:35px}.kicker{color:var(--cyan);font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:2px}.section-head h2{font-size:clamp(30px,4vw,50px);letter-spacing:-2px;margin-top:7px}.section-head p{color:var(--muted);max-width:700px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{padding:25px;transition:.25s}.card:hover{transform:translateY(-6px);border-color:rgba(53,232,255,.3)}.card h3{margin-bottom:8px}.card p{color:var(--muted);font-size:14px}.tag{display:inline-block;margin:8px 6px 0 0;padding:5px 9px;border-radius:999px;background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.22);font-size:12px}
+.skills{display:flex;flex-wrap:wrap;gap:10px}.skill{padding:11px 14px;border-radius:13px;background:rgba(255,255,255,.04);border:1px solid var(--line);font-weight:700;color:#dfe3fa}
+.timeline{position:relative;max-width:850px}.timeline:before{content:"";position:absolute;left:8px;top:0;bottom:0;width:1px;background:linear-gradient(var(--cyan),var(--violet),transparent)}.item{padding-left:38px;margin-bottom:25px;position:relative}.item:before{content:"";position:absolute;left:3px;top:8px;width:11px;height:11px;border-radius:50%;background:var(--cyan);box-shadow:0 0 16px var(--cyan)}.item strong{color:var(--cyan);font-size:13px}.item h3{margin:3px 0}.item p{color:var(--muted);font-size:14px}
+.ai{position:fixed;right:22px;bottom:22px;z-index:30}.ai-btn{border:0;border-radius:999px;padding:14px 18px;font-weight:900;background:linear-gradient(90deg,var(--cyan),var(--violet),var(--pink));box-shadow:0 0 35px rgba(139,92,246,.45);cursor:pointer}.chat{display:none;position:absolute;right:0;bottom:62px;width:min(360px,calc(100vw - 30px));height:480px;overflow:hidden;flex-direction:column}.chat.open{display:flex}.chat-head{padding:16px;display:flex;justify-content:space-between;border-bottom:1px solid var(--line)}.chat-head small{color:var(--cyan)}.messages{padding:15px;overflow:auto;flex:1}.msg{padding:10px 12px;border-radius:14px;margin-bottom:9px;font-size:13px;max-width:88%;background:rgba(255,255,255,.06)}.msg.user{margin-left:auto;background:linear-gradient(90deg,rgba(53,232,255,.16),rgba(139,92,246,.16))}.quick{display:flex;gap:6px;overflow:auto;padding:0 12px 9px}.quick button{white-space:nowrap;background:rgba(255,255,255,.06);border:1px solid var(--line);color:#fff;border-radius:10px;padding:7px 9px;font-size:11px}.input{display:flex;padding:12px;border-top:1px solid var(--line);gap:8px}.input input{min-width:0;flex:1;background:#080a18;border:1px solid var(--line);color:#fff;border-radius:11px;padding:10px}.input button{border:0;border-radius:11px;padding:0 13px;background:var(--cyan);font-weight:900}
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:18px}.contact-card{padding:28px}.contact-row{padding:12px 0;border-bottom:1px solid var(--line);color:#dfe3fa}.contact-row span{color:var(--muted);display:block;font-size:12px}
+footer{padding:35px 0 60px;color:var(--muted);text-align:center}.up{position:fixed;right:20px;bottom:82px;border:1px solid var(--line);background:#0b0e20;color:#fff;border-radius:12px;padding:9px 12px;display:none;z-index:25}
+@media(max-width:800px){.links{display:none}.menu{display:block}.links.show{display:flex;position:absolute;top:60px;left:0;right:0;padding:15px;flex-direction:column;background:#090b1d;border-radius:14px}.hero-grid,.contact{grid-template-columns:1fr}.hero{text-align:center}.hero p{margin:auto}.actions{justify-content:center}.orbit{width:260px;height:260px}.grid{grid-template-columns:1fr}.avatar{width:125px;height:125px;font-size:38px}h1{letter-spacing:-2px}}
 
-/* AI ASSISTANT */
-.ai-open{position:fixed;right:20px;bottom:20px;z-index:2000;padding:13px 17px;border:1px solid rgba(0,229,255,.35);border-radius:999px;background:linear-gradient(135deg,#111a38,#17102d);color:#fff;box-shadow:0 10px 40px rgba(0,229,255,.18);cursor:pointer;font-weight:900}
-.ai-panel{position:fixed;right:20px;bottom:78px;width:min(390px,calc(100% - 24px));height:560px;z-index:2001;display:none;flex-direction:column;overflow:hidden;border:1px solid rgba(0,229,255,.22);border-radius:24px;background:rgba(7,11,28,.96);box-shadow:0 25px 100px rgba(0,0,0,.55);backdrop-filter:blur(20px)}
-.ai-panel.open{display:flex}.ai-head{padding:16px 17px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}.ai-title{font-weight:900}.ai-title small{display:block;color:var(--green);font-size:.68rem}.ai-close{border:0;background:none;color:#fff;font-size:22px;cursor:pointer}.ai-messages{flex:1;overflow:auto;padding:15px;display:flex;flex-direction:column;gap:10px}.msg{max-width:86%;padding:10px 12px;border-radius:15px;font-size:.85rem;white-space:pre-wrap}.bot{align-self:flex-start;background:rgba(255,255,255,.07);border:1px solid var(--line)}.user{align-self:flex-end;background:linear-gradient(135deg,var(--blue),var(--violet));color:#fff}.quick{display:flex;gap:7px;flex-wrap:wrap;padding:0 14px 10px}.quick button{border:1px solid rgba(0,229,255,.18);background:rgba(0,229,255,.05);color:#dcecff;border-radius:999px;padding:7px 9px;font-size:.7rem;cursor:pointer}.ai-input{display:flex;gap:8px;padding:12px;border-top:1px solid var(--line)}.ai-input input{min-width:0;flex:1;border:1px solid var(--line);background:rgba(255,255,255,.05);color:#fff;border-radius:12px;padding:11px;outline:none}.ai-input button{border:0;border-radius:12px;background:linear-gradient(135deg,var(--cyan),var(--blue));color:#001018;font-weight:900;padding:0 15px;cursor:pointer}
-
-@media(max-width:950px){.hero-grid,.about-grid,.contact-grid{grid-template-columns:1fr}.visual{order:-1}.projects{grid-template-columns:1fr 1fr}.focus{grid-template-columns:1fr 1fr}}
-@media(max-width:720px){section{padding:70px 0}.container{width:calc(100% - 24px)}.nav-in{height:66px}.menu{display:block}.navlinks{display:none;position:absolute;top:66px;left:0;right:0;padding:10px 5%;background:#0a0f22;border-bottom:1px solid var(--line);flex-direction:column}.navlinks.open{display:flex}.navlinks a{padding:9px}.hero{padding-top:105px}.hero-grid{text-align:center}.hero-copy{margin:auto}.buttons,.tags{justify-content:center}.orbit{width:285px}.badge{display:none}.projects,.skill-grid,.focus,.stats{grid-template-columns:1fr}.pad{padding:22px}.ai-panel{right:12px;bottom:72px;height:540px}.ai-open{right:12px;bottom:12px}.foot{flex-direction:column;text-align:center}}
+#micBtn{width:64px;min-width:64px;height:56px;border:1px solid rgba(255,255,255,.14);border-radius:16px;background:rgba(20,24,55,.92);color:#fff;font-size:24px;cursor:pointer;transition:.2s}
+#micBtn:hover{transform:translateY(-2px);box-shadow:0 0 24px rgba(44,220,255,.22)}
+#micBtn.listening{background:linear-gradient(135deg,#ff4d8d,#7b5cff);box-shadow:0 0 28px rgba(255,77,141,.45);animation:micPulse 1s infinite}
+@keyframes micPulse{50%{transform:scale(1.05)}}
+@media(max-width:600px){#micBtn{width:58px;min-width:58px;height:56px}}
 </style>
-</head>
 
+<style id="sandeep-mic-style">
+#sandeepMicBtn{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  width:54px !important;
+  min-width:54px !important;
+  height:54px !important;
+  margin:0 6px !important;
+  padding:0 !important;
+  border:1px solid rgba(255,255,255,.16) !important;
+  border-radius:50% !important;
+  background:rgba(255,255,255,.08) !important;
+  color:#fff !important;
+  font-size:22px !important;
+  line-height:1 !important;
+  cursor:pointer !important;
+  box-shadow:none !important;
+  flex:0 0 54px !important;
+}
+#sandeepMicBtn:hover{
+  background:rgba(255,255,255,.14) !important;
+  transform:none !important;
+}
+#sandeepMicBtn.listening{
+  background:rgba(255,70,110,.18) !important;
+  border-color:rgba(255,70,110,.55) !important;
+  box-shadow:0 0 18px rgba(255,70,110,.28) !important;
+  animation:sandeepMicPulse 1s infinite !important;
+}
+@keyframes sandeepMicPulse{50%{transform:scale(1.05)}}
+@media(max-width:600px){
+  #sandeepMicBtn{
+    width:52px !important;
+    min-width:52px !important;
+    height:52px !important;
+    flex-basis:52px !important;
+    font-size:21px !important;
+  }
+}
+</style>
+
+
+
+
+<style id="chatgpt-voice-mic-style">#sandeepMicBtn svg{width:25px;height:25px;display:block}#sandeepMicBtn{border-radius:50%!important;background:rgba(255,255,255,.08)!important;border:1px solid rgba(255,255,255,.16)!important;color:#fff!important;box-shadow:none!important}#sandeepMicBtn.listening{background:rgba(255,70,110,.18)!important;border-color:rgba(255,70,110,.55)!important;box-shadow:0 0 18px rgba(255,70,110,.28)!important}</style><style id="chat-controls-size-final">
+#sandeepMicBtn{width: 44px !important;min-width:44px!important;height: 72px !important;flex:0 0 44px!important;margin:0 4px!important;font-size:20px!important}
+#sandeepMicBtn svg{width:22px!important;height:22px!important}
+#send{width:72px!important;min-width:72px!important;height:56px!important;padding:0!important;border-radius:14px!important;font-size:25px!important}
+@media(max-width:600px){#sandeepMicBtn{width:44px!important;min-width:44px!important;height:44px!important;flex-basis:44px!important}#send{width:68px!important;min-width:68px!important;height:56px!important}}
+</style>
+
+<!-- Premium motion / 3D stack -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.7/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.7/ScrollTrigger.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
+
+
+<style id="premium-3d-style">
+#three-bg{
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+  z-index:-2;
+  pointer-events:none;
+  opacity:.82;
+}
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:-1;
+  background:
+    radial-gradient(circle at 15% 20%,rgba(35,215,255,.10),transparent 28%),
+    radial-gradient(circle at 85% 35%,rgba(153,80,255,.12),transparent 30%),
+    radial-gradient(circle at 50% 90%,rgba(255,55,180,.08),transparent 28%);
+}
+.premium-tilt{
+  transform-style:preserve-3d;
+  will-change:transform;
+}
+.premium-tilt:hover{
+  box-shadow:0 24px 70px rgba(0,0,0,.28),0 0 42px rgba(45,220,255,.10);
+}
+.reveal-3d{
+  opacity:0;
+  transform:translateY(35px) rotateX(8deg);
+}
+.hero-orbit{
+  animation:heroOrbit 14s linear infinite;
+  transform-origin:center;
+}
+@keyframes heroOrbit{
+  to{transform:rotate(360deg)}
+}
+@media(prefers-reduced-motion:reduce){
+  #three-bg{display:none}
+  .hero-orbit{animation:none}
+}
+</style>
+
+</head>
 <body>
-<header class="nav">
-  <div class="container nav-in">
-    <a class="logo" href="#home">Sandeep<span>.</span></a>
-    <nav class="navlinks" id="navlinks">
-      <a href="#home">Home</a><a href="#about">About</a><a href="#skills">Skills</a>
-      <a href="#projects">Projects</a><a href="#journey">Journey</a><a href="#contact">Contact</a>
-    </nav>
-    <button class="menu" id="menuBtn">☰</button>
+
+<canvas id="three-bg" aria-hidden="true"></canvas>
+
+<nav>
+  <a class="logo" href="#home">SANDEEP<span>.YADAV</span></a>
+  <button class="menu" id="menu">☰</button>
+  <div class="links" id="links">
+    <a href="#about">About</a><a href="#skills">Skills</a><a href="#projects">Projects</a><a href="#journey">Journey</a><a href="#contact">Contact</a>
   </div>
-</header>
+</nav>
 
 <main>
 <section class="hero" id="home">
-  <div class="container hero-grid">
-    <div>
-      <div class="status"><i></i> Open to opportunities</div>
-      <h1>Sandeep <span class="gradient">Yadav.</span></h1>
-      <div class="role">Software Engineer <strong>|</strong> Web Developer <strong>|</strong> Technology Enthusiast</div>
-      <p class="hero-copy">I build responsive, practical and modern web applications while continuously improving my software engineering and technical skills.</p>
-      <div class="buttons">
-        <a class="btn primary" href="#projects">View Projects →</a>
-        <a class="btn ghost" href="#contact">Contact Me</a>
-        <a class="btn ghost" href="https://github.com/sky811572" target="_blank">GitHub ↗</a>
-      </div>
-      <div class="tags"><span class="tag">JavaScript</span><span class="tag">PHP</span><span class="tag">MySQL</span><span class="tag">Python</span><span class="tag">Git & GitHub</span></div>
-    </div>
-    <div class="visual">
-      <div class="orbit">
-        <div class="photo"><img src="profile.png" alt="Sandeep Yadav"></div>
-        <div class="badge one"><b>B.Tech</b><small>AKTU, Uttar Pradesh</small></div>
-        <div class="badge two"><b>Web Developer</b><small>Software Engineering</small></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="about">
-<div class="container">
-  <div class="head"><div class="eyebrow">01 / About</div><h2>Building with curiosity.</h2><p>A technology-focused profile centered on web development, backend fundamentals, databases and continuous learning.</p></div>
-  <div class="about-grid">
-    <div class="card pad"><h3>Who I Am</h3><p class="muted">I am Sandeep Yadav, a Software Engineer and Web Developer. I enjoy turning ideas into clean, responsive and useful digital experiences.</p></div>
-    <div class="card pad"><h3>Education</h3><p><strong>Bachelor of Technology (B.Tech)</strong></p><p class="muted">Dr. A.P.J. Abdul Kalam Technical University (AKTU), Uttar Pradesh</p></div>
-  </div>
-  <div class="stats">
-    <div class="stat"><strong>10+</strong><span>Core Technologies</span></div>
-    <div class="stat"><strong>3</strong><span>Featured Projects</span></div>
-    <div class="stat"><strong>B.Tech</strong><span>Education</span></div>
-    <div class="stat"><strong>∞</strong><span>Learning Mindset</span></div>
-  </div>
+<div class="container hero-grid">
+<div>
+<div class="eyebrow">● Available for software & web opportunities</div>
+<h1>Building <span class="grad">digital experiences</span> with code.</h1>
+<p>I'm <b>Sandeep Yadav</b> — Software Engineer, Web Developer and Technology Enthusiast. I build responsive interfaces, backend systems and database-driven applications.</p>
+<div class="actions"><a class="btn primary" href="#projects">Explore Projects</a><a class="btn secondary" href="#contact">Let's Connect</a></div>
+</div>
+<div class="orbit"><div class="avatar">SY</div></div>
 </div>
 </section>
 
-<section id="skills">
-<div class="container">
-  <div class="head"><div class="eyebrow">02 / Skills</div><h2>Technical Skills</h2><p>Technologies and tools I use for development, databases and software projects.</p></div>
-  <div class="card pad">
-    <div class="skill-grid">
-      <div class="skill"><div class="skilltop"><span>HTML5</span><small>Advanced</small></div><div class="bar"><i style="width:92%"></i></div></div>
-      <div class="skill"><div class="skilltop"><span>CSS3</span><small>Advanced</small></div><div class="bar"><i style="width:90%"></i></div></div>
-      <div class="skill"><div class="skilltop"><span>JavaScript</span><small>Strong</small></div><div class="bar"><i style="width:84%"></i></div></div>
-      <div class="skill"><div class="skilltop"><span>PHP</span><small>Strong</small></div><div class="bar"><i style="width:82%"></i></div></div>
-      <div class="skill"><div class="skilltop"><span>MySQL</span><small>Strong</small></div><div class="bar"><i style="width:82%"></i></div></div>
-      <div class="skill"><div class="skilltop"><span>Python</span><small>Good</small></div><div class="bar"><i style="width:76%"></i></div></div>
-      <div class="skill"><div class="skilltop"><span>Java</span><small>Good</small></div><div class="bar"><i style="width:70%"></i></div></div>
-      <div class="skill"><div class="skilltop"><span>C / C++</span><small>Good</small></div><div class="bar"><i style="width:72%"></i></div></div>
-    </div>
-    <div class="techs" style="margin-top:20px">
-      <span class="tech">Git</span><span class="tech">GitHub</span><span class="tech">Responsive Design</span><span class="tech">REST/API Basics</span><span class="tech">VS Code</span><span class="tech">XAMPP</span><span class="tech">phpMyAdmin</span>
-    </div>
-  </div>
-</div>
-</section>
+<section id="about"><div class="container"><div class="section-head"><div class="kicker">About</div><h2>Engineer with a full-stack mindset.</h2><p>From semantic HTML and responsive CSS to JavaScript, React, PHP, Node.js and MySQL, my focus is turning ideas into usable, maintainable products.</p></div>
+<div class="grid"><div class="card glass"><h3>Software Engineering</h3><p>Problem solving, clean architecture, debugging, APIs, databases and continuous improvement.</p></div><div class="card glass"><h3>Web Development</h3><p>Modern responsive interfaces with HTML5, CSS3, JavaScript and React.js.</p></div><div class="card glass"><h3>Backend & Data</h3><p>PHP, Node.js, REST APIs, MySQL, authentication and database-driven workflows.</p></div></div></div></section>
 
-<section id="projects">
-<div class="container">
-  <div class="head"><div class="eyebrow">03 / Projects</div><h2>Selected Projects</h2></div>
-  <div class="projects">
-    <article class="card project"><div class="num">PROJECT 01</div><h3>Task Management Dashboard</h3><p>A responsive task dashboard with task creation, status management, descriptions, due dates and database integration.</p><div class="project-tags"><span>HTML</span><span>CSS</span><span>JS</span><span>PHP</span><span>MySQL</span></div></article>
-    <article class="card project"><div class="num">PROJECT 02</div><h3>Login & Registration System</h3><p>A PHP and MySQL authentication project with registration, login, database connectivity and form validation.</p><div class="project-tags"><span>PHP</span><span>MySQL</span><span>HTML</span><span>CSS</span></div></article>
-    <article class="card project"><div class="num">PROJECT 03</div><h3>Responsive Web Projects</h3><p>Modern responsive interfaces focused on clean layouts, mobile usability, reusable UI components and practical frontend development.</p><div class="project-tags"><span>HTML5</span><span>CSS3</span><span>JavaScript</span><span>Responsive</span></div></article>
-  </div>
-</div>
-</section>
+<section id="skills"><div class="container"><div class="section-head"><div class="kicker">Technology Stack</div><h2>Tools I work with.</h2><p>A practical stack covering frontend, backend, data, tooling and deployment fundamentals.</p></div>
+<div class="skills">
+<span class="skill">HTML5</span><span class="skill">CSS3</span><span class="skill">JavaScript</span><span class="skill">React.js</span><span class="skill">Node.js</span><span class="skill">PHP</span><span class="skill">MySQL</span><span class="skill">Python</span><span class="skill">Java</span><span class="skill">C</span><span class="skill">C++</span><span class="skill">Git</span><span class="skill">GitHub</span><span class="skill">REST APIs</span><span class="skill">Responsive Design</span><span class="skill">VS Code</span><span class="skill">XAMPP</span><span class="skill">phpMyAdmin</span>
+</div></div></section>
 
-<section>
-<div class="container">
-  <div class="head"><div class="eyebrow">04 / Focus</div><h2>Professional Focus</h2></div>
-  <div class="focus">
-    <div class="card"><div class="ico">🌐</div><h3>Web Development</h3><p>Responsive and user-friendly web experiences.</p></div>
-    <div class="card"><div class="ico">⚙️</div><h3>Software Engineering</h3><p>Problem solving, clean implementation and continuous improvement.</p></div>
-    <div class="card"><div class="ico">🗄️</div><h3>Backend & Database</h3><p>PHP, MySQL, APIs and practical database workflows.</p></div>
-    <div class="card"><div class="ico">🚀</div><h3>Continuous Growth</h3><p>Learning new technologies and improving engineering skills.</p></div>
-  </div>
-</div>
-</section>
+<section id="projects"><div class="container"><div class="section-head"><div class="kicker">Projects</div><h2>Selected builds.</h2></div><div class="grid">
+<div class="card glass"><h3>Task Management Dashboard</h3><p>Task creation, status workflow, rich descriptions, due dates and database integration.</p><span class="tag">JavaScript</span><span class="tag">PHP</span><span class="tag">MySQL</span></div>
+<div class="card glass"><h3>Login & Registration System</h3><p>Authentication-oriented application with form validation, sessions and MySQL persistence.</p><span class="tag">PHP</span><span class="tag">MySQL</span><span class="tag">HTML/CSS</span></div>
+<div class="card glass"><h3>Responsive Web Projects</h3><p>Mobile-first interfaces with reusable UI patterns, responsive layouts and interactive JavaScript.</p><span class="tag">HTML5</span><span class="tag">CSS3</span><span class="tag">JavaScript</span></div>
+</div></div></section>
 
-<section id="journey">
-<div class="container">
-  <div class="head"><div class="eyebrow">05 / Journey</div><h2>My Journey</h2></div>
-  <div class="journey">
-    <div class="journey-item"><div class="year">2009 – 2015</div><h3>Classes 1–8</h3><p><strong>Saraswati Gyan Mandir</strong> · NCERT Curriculum</p></div>
-    <div class="journey-item"><div class="year">2017 · CLASS X</div><h3>High School</h3><p>UP Board · <strong>Percentage: 66.33%</strong></p></div>
-    <div class="journey-item"><div class="year">2021 · CLASS XII</div><h3>Intermediate</h3><p>UP Board · <strong>Percentage: 64.80%</strong></p></div>
-    <div class="journey-item"><div class="year">B.Tech</div><h3>Dr. A.P.J. Abdul Kalam Technical University</h3><p>Engineering education and technical foundation.</p></div>
-    <div class="journey-item"><div class="year">WEB & DATABASE PROJECTS</div><h3>Hands-on Development</h3><p>Built practical web, backend and database projects.</p></div>
-    <div class="journey-item"><div class="year">NOW</div><h3>Software Engineering Growth</h3><p>Continuously improving development, problem-solving and professional skills.</p></div>
-  </div>
-</div>
-</section>
+<section id="architecture"><div class="container"><div class="section-head"><div class="kicker">Full-Stack Architecture</div><h2>Frontend → API → Database.</h2><p>This portfolio documents the technologies used across a production-style web stack.</p></div><div class="grid">
+<div class="card glass"><h3>Frontend</h3><p>HTML5 + CSS3 + JavaScript + React.js for component-driven, responsive interfaces.</p></div>
+<div class="card glass"><h3>Backend</h3><p>Node.js/Express and PHP for APIs, authentication, business logic and server-side workflows.</p></div>
+<div class="card glass"><h3>Database</h3><p>MySQL for structured application data, users, tasks and relational persistence.</p></div>
+</div></div></section>
 
-<section id="contact">
-<div class="container">
-  <div class="head"><div class="eyebrow">06 / Contact</div><h2>Let's connect.</h2><p>For professional opportunities, collaboration or technology discussions.</p></div>
-  <div class="contact-grid">
-    <div class="card pad">
-      <h3>Contact Information</h3>
-      <div class="contact-list">
-        <a class="contact-item" href="mailto:sky811572@gmail.com"><b>Email</b><span>sky811572@gmail.com</span></a>
-        <a class="contact-item" href="https://wa.me/918115728884" target="_blank"><b>WhatsApp</b><span>+91 8115728884</span></a>
-      </div>
-      <div class="social">
-        <a href="https://github.com/sky811572" target="_blank">GitHub</a>
-        <a href="https://www.linkedin.com/in/sandeep8115" target="_blank">LinkedIn</a>
-        <a href="https://www.instagram.com/sandeep_yadav_0.7_/" target="_blank">Instagram</a>
-        <a href="https://linktr.ee/sandeep_yadav_07" target="_blank">Linktree</a>
-      </div>
-    </div>
-    <div class="card pad">
-      <h3>Open to Opportunities</h3>
-      <p class="muted">Interested in software engineering, web development, backend/database work and opportunities where I can learn, contribute and grow.</p>
-      <div class="buttons"><a class="btn primary" href="mailto:sky811572@gmail.com">Email Me →</a><a class="btn ghost" href="https://wa.me/918115728884" target="_blank">WhatsApp</a></div>
-    </div>
-  </div>
-</div>
-</section>
+<section id="journey"><div class="container"><div class="section-head"><div class="kicker">Journey</div><h2>Learning → building → engineering.</h2></div><div class="timeline">
+<div class="item"><strong>2009 – 2015</strong><h3>Classes 1–8 · Saraswati Gyan Mandir</h3><p>NCERT Curriculum</p></div>
+<div class="item"><strong>2017</strong><h3>Class X · High School</h3><p>UP Board · Percentage 66.33%</p></div>
+<div class="item"><strong>2021</strong><h3>Class XII · Intermediate</h3><p>UP Board · Percentage 64.80%</p></div>
+<div class="item"><strong>B.Tech</strong><h3>Dr. A.P.J. Abdul Kalam Technical University</h3><p>Technology, software development and project work.</p></div>
+<div class="item"><strong>NOW</strong><h3>Software Engineering Growth</h3><p>Web development, backend, databases and modern application architecture.</p></div>
+</div></div></section>
+
+<section id="contact"><div class="container"><div class="section-head"><div class="kicker">Contact</div><h2>Let's build something useful.</h2></div><div class="contact">
+<div class="contact-card glass"><div class="contact-row"><span>Email</span><a href="mailto:sky811572@gmail.com">sky811572@gmail.com</a></div><div class="contact-row"><span>WhatsApp</span><a href="https://wa.me/918115728884" target="_blank">+91 8115728884</a></div><div class="contact-row"><span>GitHub</span><a href="https://github.com/sky811572" target="_blank">github.com/sky811572</a></div><div class="contact-row"><span>LinkedIn</span><a href="https://www.linkedin.com/in/sandeep8115" target="_blank">linkedin.com/in/sandeep8115</a></div><div class="contact-row"><span>Instagram</span><a href="https://www.instagram.com/sandeep_yadav_0.7_/" target="_blank">@sandeep_yadav_0.7_</a></div></div>
+<div class="contact-card glass"><h3>Open to opportunities</h3><p style="color:var(--muted);margin-top:10px">Interested in software engineering, web development, backend/database work and technology projects.</p><div class="actions"><a class="btn primary" href="mailto:sky811572@gmail.com">Email Me</a><a class="btn secondary" href="https://wa.me/918115728884" target="_blank">WhatsApp</a></div></div>
+</div></div></section>
 </main>
 
-<footer><div class="container foot"><span>© 2026 Sandeep Yadav. All rights reserved.</span><span>Software Engineer · Web Developer</span></div></footer>
-<button id="top">↑</button>
-
-<!-- Sandeep AI -->
-<button class="ai-open" id="aiOpen">✦ Sandeep AI</button>
-<div class="ai-panel" id="aiPanel">
-  <div class="ai-head"><div class="ai-title">✦ Sandeep AI<small>● Online · Free Mode</small></div><button class="ai-close" id="aiClose">×</button></div>
-  <div class="ai-messages" id="aiMessages">
-    <div class="msg bot">Hi! I'm Sandeep AI 👋<br>Ask me about Sandeep, his skills, projects, education, journey or contact details.</div>
-  </div>
-  <div class="quick">
-    <button data-q="Tell me about Sandeep">About Sandeep</button>
-    <button data-q="What are Sandeep's skills?">Skills</button>
-    <button data-q="Tell me about Sandeep's projects">Projects</button>
-    <button data-q="How can I contact Sandeep?">Contact</button>
-  </div>
-  <form class="ai-input" id="aiForm"><input id="aiText" autocomplete="off" placeholder="Ask something..."><button>Send</button></form>
+<div class="ai">
+<div class="chat glass" id="chat"><div class="chat-head"><div><b>Sandeep AI</b><br><small>Portfolio Assistant · Free Mode</small></div><button id="close" style="background:none;border:0;color:#fff;font-size:20px">×</button></div><div class="messages" id="messages"><div class="msg">Hi! 👋 Ask me anything about Sandeep, his skills, projects, education, technologies or contact details.</div></div><div class="quick"><button data-q="Who is Sandeep?">About</button><button data-q="What are Sandeep's skills?">Skills</button><button data-q="Tell me about projects">Projects</button><button data-q="How can I contact Sandeep?">Contact</button></div><div class="input"><input id="input" placeholder="Ask in Hindi or English..."><button id="sandeepMicBtn" type="button" aria-label="Ask by voice" title="Voice input"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 14.5a3.5 3.5 0 0 0 3.5-3.5V6a3.5 3.5 0 1 0-7 0v5a3.5 3.5 0 0 0 3.5 3.5Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M8.5 21h7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button><button id="send">➤</button></div></div>
+<button class="ai-btn" id="open">✦ Sandeep AI</button>
 </div>
-
+<button class="up" id="up">↑</button>
+<footer>© 2026 Sandeep Yadav · Software Engineer · Built with HTML, CSS & JavaScript</footer>
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-  "use strict";
+const $=s=>document.querySelector(s);
+$('#menu').onclick=()=>$('#links').classList.toggle('show');
+document.querySelectorAll('#links a').forEach(a=>a.onclick=()=>$('#links').classList.remove('show'));
+const chat=$('#chat'); $('#open').onclick=()=>chat.classList.add('open'); $('#close').onclick=()=>chat.classList.remove('open');
+window.addEventListener('scroll',()=>$('#up').style.display=scrollY>500?'block':'none'); $('#up').onclick=()=>scrollTo({top:0,behavior:'smooth'});
 
-  const BACKEND = "https://sandeep-yadav-portfolio.onrender.com/api/chat";
+const KB=[
 
-  const menuBtn = document.getElementById("menuBtn");
-  const navlinks = document.getElementById("navlinks");
+[/gav|gaon|village|sandeep.*village|sandeep.*gaon/i,"Sandeep's village is Nayakpur, Post Gutwan, Mariyahu, Jaunpur, Uttar Pradesh."],
+[/post|post office|postal|post.*address/i,"Sandeep's post is Gutwan."],
+[/district|jila|zilla/i,"Sandeep's district is Jaunpur, Uttar Pradesh."],
+[/state|rajya/i,"Sandeep's state is Uttar Pradesh."],
+[/address|pata|full address/i,"Sandeep's address is Nayakpur Village, Post Gutwan, Mariyahu, Jaunpur, Uttar Pradesh."],
+[/who is|who's|about sandeep|sandeep kaun hai|sandeep ke bare/i,"Sandeep Yadav is a Software Engineer, Web Developer and Technology Enthusiast from Nayakpur Village, Mariyahu, Jaunpur, Uttar Pradesh. He is interested in technology, software development and cricket."],
+[/full name|naam kya|name kya/i,"His full name is Sandeep Yadav."],
+[/city|state|where.*live|kahan.*rehte|kahan.*se/i,"Sandeep's village is Nayakpur, Post Gutwan, Mariyahu, Jaunpur, Uttar Pradesh, India."],
+[/language|bhasha|languages/i,"Sandeep speaks Hindi, English and Bhojpuri."],
+[/hobby|interest|shauk|pasand/i,"Sandeep's main hobby and interest is cricket. He also enjoys technology and software development."],
+[/father|papa|pitaji|dad|papa ji|father ji/i,"Sandeep\'s father (Papa) is Ram Asare Yadav. Father and Papa refer to the same person."],
+[/mother|mummy|maa|mom|mummy ji|mother ji/i,"Sandeep\'s mother (Mummy) is Shushila Devi. Mother and Mummy refer to the same person."],
+[/sister|behen|deepa|jyoti/i,"Sandeep's sisters are Deepa and Jyoti."],
+[/friends|friend|dost|yaar/i,"Sandeep has many friends. Some of the friends he has chosen to mention are Suraj, Niraj, Pavan, Manush, Sonu, Bhonu and Anmol."],
+[/grandfather|dada|dada ji|tilakdhari/i,"Sandeep's grandfather's name is Tilakdhari Yadav."],
+[/uncle|chacha|om prakash|jay prakash/i,"Sandeep's uncles (chacha) are Om Prakash and Jay Prakash."],
+[/aunt|chachi|sunita|gudiya/i,"Sandeep's chachis are Sunita and Gudiya Yadav."],
+[/brother|bhai|bhaiya|jiv|ashu|paltu/i,"Sandeep's brothers are Jiv, Anmol, Ashu and Paltu."],
+[/maternal uncle|mama|subedar|shailesh|kamlesh/i,"Sandeep's mamas are Subedar, Shailesh and Kamlesh Yadav."],
+[/maternal aunt|mami|mami ji|kanchana|radhika|pooja/i,"Sandeep's Mami are Kanchana, Radhika and Pooja Yadav."],
+[/nana|grandfather.*mother|syamnath/i,"Sandeep's nana (maternal grandfather) is Syamnath Yadav."],
+[/nani|grandmother.*mother|maternal grandmother/i,"Sandeep respectfully refers to his nani as 'Nani Ji' and does not use her personal name. She is a deeply respected elder in his family."],
+[/mama.*ghar|maternal.*home|prauganj|chakke/i,"Sandeep's mama's home is in Prauganj Chakke, Jaunpur, Uttar Pradesh."],
 
-  if (menuBtn && navlinks) {
-    menuBtn.addEventListener("click", function () {
-      navlinks.classList.toggle("open");
-    });
-    navlinks.querySelectorAll("a").forEach(function (link) {
-      link.addEventListener("click", function () {
-        navlinks.classList.remove("open");
-      });
-    });
-  }
+[/class 1|class 2|class 3|class 4|class 5|class 6|class 7|class 8|1.*8|primary|school/i,"Sandeep studied Classes 1–8 from 2009 to 2015 at Saraswati Gyan Mandir under the NCERT Curriculum."],
+[/school name|school.*sandeep|saraswati gyan mandir/i,"Sandeep's school was Saraswati Gyan Mandir."],
+[/class 9|class 10|10th|high school|66\.33|up board.*10/i,"Sandeep completed Class X / High School in 2017 under the UP Board with 66.33%."],
+[/class 11|class 12|12th|intermediate|64\.80|up board.*12/i,"Sandeep completed Class XII / Intermediate in 2021 under the UP Board with 64.80%."],
+[/education|qualification|study|padhai|degree/i,"Sandeep's educational journey includes Classes 1–8 at Saraswati Gyan Mandir (2009–2015), Class X in 2017 with 66.33%, Class XII in 2021 with 64.80%, and B.Tech at Dr. A.P.J. Abdul Kalam Technical University (AKTU)."],
+[/btech|b\.tech|college|university|aktu/i,"Sandeep pursued B.Tech at Dr. A.P.J. Abdul Kalam Technical University (AKTU), Uttar Pradesh."],
+[/journey|timeline|school.*college/i,"Sandeep's journey: 2009–2015 Classes 1–8 at Saraswati Gyan Mandir; 2017 Class X, UP Board, 66.33%; 2021 Class XII, UP Board, 64.80%; B.Tech at AKTU; and now focused on Software Engineering growth."],
 
-  const topBtn = document.getElementById("top");
-  function updateTopButton() {
-    if (topBtn) topBtn.style.display = window.scrollY > 500 ? "block" : "none";
-  }
-  window.addEventListener("scroll", updateTopButton, { passive: true });
-  if (topBtn) {
-    topBtn.addEventListener("click", function () {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    });
-    updateTopButton();
-  }
+[/profession|job|career|work|what.*do|kya.*karte/i,"Sandeep is a Software Engineer, Web Developer and Technology Enthusiast. His professional focus includes web development, backend systems, databases and continuous technical growth."],
+[/software engineer|developer|web developer/i,"Sandeep works toward Software Engineering and Web Development, with a full-stack mindset covering frontend, backend and databases."],
+[/career goal|future goal|goal|lakshya|future/i,"Sandeep's goal is to grow as a strong Software Engineer, build useful real-world applications and continuously improve his technical and communication skills."],
+[/strength|strong point|achhi baat|quality/i,"Sandeep's strengths include curiosity about technology, willingness to learn, practical project work, problem solving and continuous improvement."],
+[/professional focus|focus|kis field/i,"His professional focus is Web Development, Software Engineering, Backend & Database development and continuous learning."],
 
-  const revealItems = document.querySelectorAll(".reveal");
-  if ("IntersectionObserver" in window && revealItems.length) {
-    const observer = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("show");
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.12 });
-    revealItems.forEach(function (item) { observer.observe(item); });
-  } else {
-    revealItems.forEach(function (item) { item.classList.add("show"); });
-  }
+[/skills|technology|tech stack|technical skills|skill kya/i,"Sandeep's technical stack includes HTML5, CSS3, JavaScript, React.js, Node.js, PHP, MySQL, Python, Java, C, C++, Git, GitHub, REST API basics, Responsive Design, VS Code, XAMPP and phpMyAdmin."],
+[/javascript|js\b/i,"Yes. JavaScript is one of Sandeep's core technologies for dynamic UI, DOM manipulation, events, validation and application logic."],
+[/react|react\.js/i,"React.js is part of Sandeep's frontend/full-stack technology stack for component-based user interfaces."],
+[/node|node\.js|express/i,"Node.js and Express are part of Sandeep's backend stack for server-side applications and APIs."],
+[/php/i,"PHP is one of Sandeep's backend technologies, especially for server-side web applications and MySQL integration."],
+[/mysql|database|db/i,"MySQL is Sandeep's relational database technology for structured application data such as users and tasks."],
+[/python/i,"Python is one of Sandeep's programming languages for software development and problem solving."],
+[/java\b/i,"Java is one of Sandeep's programming languages."],
+[/c\+\+|cpp/i,"C++ is one of Sandeep's programming languages."],
+[/html|css|responsive/i,"HTML5 and CSS3 are core frontend technologies Sandeep uses for structure, styling and responsive design."],
+[/git|github|version control/i,"Sandeep uses Git and GitHub for source-code management, version control and project collaboration."],
+[/vscode|visual studio code/i,"Visual Studio Code is one of Sandeep's development tools."],
+[/xampp|phpmyadmin/i,"Sandeep uses XAMPP and phpMyAdmin for local PHP/MySQL development and database management."],
+[/api|rest/i,"Sandeep has experience with REST/API basics as part of his web development and backend learning."],
 
-  const navAnchors = Array.from(document.querySelectorAll('.navlinks a[href^="#"]'));
-  const sections = navAnchors.map(function (a) {
-    return document.querySelector(a.getAttribute("href"));
-  }).filter(Boolean);
+[/project|projects|project list/i,"Sandeep's key projects include a Task Management Dashboard, Login & Registration System, and Responsive Web Projects."],
+[/task|todo|dashboard/i,"The Task Management Dashboard includes task creation, descriptions, dates, status workflows and database integration."],
+[/login|registration|authentication/i,"The Login & Registration System focuses on forms, validation, authentication concepts, sessions and MySQL persistence."],
+[/responsive web|website project|frontend project/i,"Sandeep has built responsive web projects using HTML5, CSS3 and JavaScript with mobile-friendly layouts and interactive UI."],
 
-  if ("IntersectionObserver" in window && sections.length) {
-    const sectionObserver = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          navAnchors.forEach(function (a) {
-            a.classList.toggle("active", a.getAttribute("href") === "#" + entry.target.id);
-          });
-        }
-      });
-    }, { rootMargin: "-30% 0px -60% 0px" });
-    sections.forEach(function (section) { sectionObserver.observe(section); });
-  }
+[/github/i,"Sandeep's GitHub is https://github.com/sky811572"],
+[/linkedin/i,"Sandeep's LinkedIn is https://www.linkedin.com/in/sandeep8115"],
+[/instagram/i,"Sandeep's Instagram is https://www.instagram.com/sandeep_yadav_0.7_/"],
+[/linktree/i,"Sandeep's Linktree is https://linktr.ee/sandeep_yadav_07"],
+[/whatsapp|phone|mobile/i,"Sandeep's WhatsApp number is +91 8115728884."],
+[/email|mail|contact|reach/i,"Sandeep's email is sky811572@gmail.com. He can also be contacted on WhatsApp."],
 
-  const aiOpen = document.getElementById("aiOpen");
-  const aiClose = document.getElementById("aiClose");
-  const aiPanel = document.getElementById("aiPanel");
-  const aiForm = document.getElementById("aiForm");
-  const aiText = document.getElementById("aiText");
-  const aiMessages = document.getElementById("aiMessages");
+[/cricket|sports|game/i,"Cricket is Sandeep's main hobby and interest."],
+[/india|uttar pradesh|up|jaunpur/i,"Sandeep's village is Nayakpur, Post Gutwan, Mariyahu, Jaunpur, Uttar Pradesh, India."],
+[/family|parivar|family members|ghar wale/i,"Sandeep comes from a family he respects deeply. His father is Ram Asare Yadav, mother is Shushila Devi, sisters are Deepa and Jyoti, and other family members include his grandparents, brothers, uncles, aunts, mamas and mamis."],
+[/nani.*respect|nani.*name|why.*nani/i,"Sandeep chooses not to use his nani's personal name because he holds her in very high respect. The appropriate response is simply 'Nani Ji'."],
 
-  let sessionId = localStorage.getItem("sandeep_ai_session");
-  if (!sessionId) {
-    sessionId = "web-" + Date.now() + "-" + Math.random().toString(36).slice(2, 12);
-    localStorage.setItem("sandeep_ai_session", sessionId);
-  }
-
-  if (aiOpen) aiOpen.addEventListener("click", function () {
-    if (aiPanel) aiPanel.classList.add("open");
-    if (aiText) setTimeout(function () { aiText.focus(); }, 100);
-  });
-
-  if (aiClose) aiClose.addEventListener("click", function () {
-    if (aiPanel) aiPanel.classList.remove("open");
-  });
-
-  function addMessage(text, type) {
-    if (!aiMessages) return;
-    const el = document.createElement("div");
-    el.className = "msg " + type;
-    el.textContent = String(text);
-    aiMessages.appendChild(el);
-    aiMessages.scrollTop = aiMessages.scrollHeight;
-  }
-
-  function freeReply(question) {
-    const q = String(question || "").toLowerCase();
-
-    if (q.includes("skill") || q.includes("technology") || q.includes("tech")) {
-      return "Sandeep's technical skills include HTML5, CSS3, JavaScript, PHP, MySQL, Python, Java, C, C++, Git, GitHub, Responsive Design, REST/API basics, VS Code, XAMPP and phpMyAdmin.";
+[/hello|hi\b|hey|namaste|namaskar/i,"Hello! 👋 I'm Sandeep AI. Ask me about Sandeep's personal profile, family, education, skills, projects, career or contact details."],
+[/thank|thanks|dhanyavad|shukriya/i,"You're welcome! 😊 Ask me anything else about Sandeep."],
+[/who are you|what are you|sandeep ai/i,"I'm Sandeep AI, the portfolio assistant. I can answer questions about Sandeep Yadav using the information provided in his portfolio."],
+[/help|what can.*ask|kya pooch/i,"You can ask me about Sandeep's family, education from Classes 1–12, B.Tech, career, skills, projects, hobbies, technologies, social profiles and contact details."]
+];
+function detectLanguage(q){
+  if(/[\u0900-\u097F]/.test(q)) return "hi";
+  const hinglish=/\b(kya|kaun|kaise|kahan|kitna|kitne|mera|meri|mere|hai|hain|hu|ho|se|ko|mein|me|aur|batao|bata|mujhe|tum|aap|iska|uska|papa|mummy|bhai|behen|dada|nana|nani|mama|mami)\b/i.test(q);
+  return hinglish ? "hinglish" : "en";
+}
+function answer(q){
+  const lang=detectLanguage(q);
+  const loc={
+    village:{
+      en:"Sandeep's village is Nayakpur.",
+      hi:"Sandeep का गाँव Nayakpur है।",
+      hinglish:"Sandeep ka gaon Nayakpur hai."
+    },
+    post:{
+      en:"Sandeep's post is Gutwan.",
+      hi:"Sandeep का Post Gutwan है।",
+      hinglish:"Sandeep ka Post Gutwan hai."
+    },
+    district:{
+      en:"Sandeep's district is Jaunpur, Uttar Pradesh.",
+      hi:"Sandeep का जिला Jaunpur, Uttar Pradesh है।",
+      hinglish:"Sandeep ka district Jaunpur, Uttar Pradesh hai."
+    },
+    address:{
+      en:"Sandeep's address is Nayakpur Village, Post Gutwan, Mariyahu, Jaunpur, Uttar Pradesh.",
+      hi:"Sandeep का पता Nayakpur Village, Post Gutwan, Mariyahu, Jaunpur, Uttar Pradesh है।",
+      hinglish:"Sandeep ka address Nayakpur Village, Post Gutwan, Mariyahu, Jaunpur, Uttar Pradesh hai."
     }
-    if (q.includes("project") || q.includes("work")) {
-      return "Sandeep has worked on a Task Management Dashboard, a Login & Registration System, and responsive web projects using HTML, CSS, JavaScript, PHP and MySQL.";
-    }
-    if (q.includes("education") || q.includes("degree") || q.includes("college") || q.includes("aktu")) {
-      return "Sandeep completed his B.Tech from Dr. A.P.J. Abdul Kalam Technical University (AKTU), Uttar Pradesh. He completed Class X with 66.33% and Class XII with 64.80% under the UP Board.";
-    }
-    if (q.includes("journey") || q.includes("school") || q.includes("2009") || q.includes("2015")) {
-      return "Sandeep's journey includes Classes 1–8 at Saraswati Gyan Mandir from 2009–2015 under the NCERT Curriculum, Class X in 2017 with 66.33%, Class XII in 2021 with 64.80%, followed by B.Tech at AKTU and hands-on web/database projects.";
-    }
-    if (q.includes("contact") || q.includes("email") || q.includes("whatsapp") || q.includes("linkedin") || q.includes("github")) {
-      return "You can contact Sandeep at sky811572@gmail.com or WhatsApp +91 8115728884. LinkedIn: linkedin.com/in/sandeep8115. GitHub: github.com/sky811572.";
-    }
-    return "Sandeep Yadav is a Software Engineer, Web Developer and Technology Enthusiast. Ask me about his skills, projects, education, journey or contact details.";
+  };
+
+  if(/full address|pata|address/i.test(q)) return loc.address[lang];
+  if(/gav|gaon|village|sandeep.*village|sandeep.*gaon/i.test(q)) return loc.village[lang];
+  if(/post|post office|postal/i.test(q)) return loc.post[lang];
+  if(/district|jila|zilla/i.test(q)) return loc.district[lang];
+
+  const family={
+    father:{
+      en:"Sandeep's father is Ram Asare Yadav. He is an important and respected member of Sandeep's family.",
+      hi:"Sandeep के पिता Ram Asare Yadav हैं। वे Sandeep के परिवार के एक महत्वपूर्ण और सम्मानित सदस्य हैं।",
+      hinglish:"Sandeep ke Father/Papa ka naam Ram Asare Yadav hai. Woh Sandeep ke family ke ek important aur respected member hain."
+    },
+    mother:{
+      en:"Sandeep's mother is Shushila Devi. She is a deeply respected and important member of Sandeep's family.",
+      hi:"Sandeep की माता Shushila Devi हैं। वे Sandeep के परिवार की एक बहुत सम्मानित और महत्वपूर्ण सदस्य हैं।",
+      hinglish:"Sandeep ki Mother/Mummy ka naam Shushila Devi hai. Woh Sandeep ke family ki bahut respected aur important member hain."
+    },
+    mami:{
+      en:"Sandeep's Mami are Kanchana, Radhika and Pooja Yadav. They are respected members of his maternal family.",
+      hi:"Sandeep की Mami Kanchana, Radhika और Pooja Yadav हैं। वे उनके ननिहाल परिवार की सम्मानित सदस्य हैं।",
+      hinglish:"Sandeep ki Mami Kanchana, Radhika aur Pooja Yadav hain. Ye unke maternal family ki respected members hain."
+    },
+    dada:{
+      en:"Sandeep's Dada Ji is Tilakdhari Yadav, a respected elder and an important part of his family.",
+      hi:"Sandeep के Dada Ji का नाम Tilakdhari Yadav है। वे परिवार के सम्मानित बुजुर्ग और Sandeep के लिए महत्वपूर्ण व्यक्ति हैं।",
+      hinglish:"Sandeep ke Dada Ji ka naam Tilakdhari Yadav hai. Woh family ke respected elder hain aur Sandeep ke liye bahut important hain."
+    },
+    nani:{en:"Nani Ji",hi:"Nani Ji",hinglish:"Nani Ji"}
+  };
+
+  if(/father|papa|pitaji|dad|papa ji|father ji/i.test(q)) return family.father[lang];
+  if(/mother|mummy|maa|mom|mummy ji|mother ji/i.test(q)) return family.mother[lang];
+  if(/mami|mami ji|kanchana|radhika|pooja/i.test(q)) return family.mami[lang];
+  if(/dada|dada ji|grandfather|tilakdhari/i.test(q)) return family.dada[lang];
+  if(/nani|maternal grandmother/i.test(q)) return family.nani[lang];
+
+  for(const [r,a] of KB){
+    if(r.test(q)) return a;
   }
-
-  async function askAI(question) {
-    const q = String(question || "").trim();
-    if (!q) return;
-
-    addMessage(q, "user");
-    if (aiText) aiText.value = "";
-
-    let answered = false;
-
-    try {
-      const controller = new AbortController();
-      const timer = setTimeout(function () { controller.abort(); }, 8000);
-
-      const response = await fetch(BACKEND, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: q, sessionId: sessionId }),
-        signal: controller.signal
-      });
-
-      clearTimeout(timer);
-
-      if (response.ok) {
-        const data = await response.json().catch(function () { return {}; });
-        const reply = data.reply || data.response || data.output_text || data.text ||
-          (typeof data.message === "string" ? data.message : "");
-
-        if (typeof reply === "string" && reply.trim() &&
-            !/couldn't generate|not connected yet|api key|credits remaining/i.test(reply)) {
-          addMessage(reply.trim(), "bot");
-          answered = true;
-        }
-      }
-    } catch (error) {
-      console.log("Sandeep AI free mode:", error);
-    }
-
-    if (!answered) addMessage(freeReply(q), "bot");
-  }
-
-  if (aiForm) {
-    aiForm.addEventListener("submit", function (event) {
-      event.preventDefault();
-      if (aiText && aiText.value.trim()) askAI(aiText.value.trim());
-    });
-  }
-
-  document.querySelectorAll(".quick button[data-q]").forEach(function (button) {
-    button.addEventListener("click", function () {
-      askAI(button.getAttribute("data-q") || "");
-    });
-  });
-
-  if (aiText) {
-    aiText.addEventListener("keydown", function (event) {
-      if (event.key === "Enter" && !event.shiftKey) {
-        event.preventDefault();
-        if (aiForm) aiForm.requestSubmit();
-      }
-    });
-  }
-
-  console.log("Sandeep Portfolio JavaScript loaded successfully.");
-});
+  return "";
+}
+function send(q){q=(q||$('#input').value).trim();if(!q)return;const box=$('#messages');box.innerHTML+=`<div class="msg user">${q.replace(/[<>&]/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;'}[c]))}</div>`;$('#input').value='';setTimeout(()=>{const reply=answer(q);if(reply){box.innerHTML+=`<div class="msg">${reply}</div>`;box.scrollTop=box.scrollHeight;if(window.sandeepSpeakReply)window.sandeepSpeakReply(reply)}},280);box.scrollTop=box.scrollHeight}
+$('#send').onclick=()=>send();$('#input').addEventListener('keydown',e=>{if(e.key==='Enter')send()});document.querySelectorAll('.quick button').forEach(b=>b.onclick=()=>send(b.dataset.q));
 </script>
+
+
+
+
+
+
+
+<script id="sandeep-voice-script">
+(function(){
+  function initVoice(){
+    const mic=document.getElementById("sandeepMicBtn");
+    const input=document.getElementById("input");
+    const sendBtn=document.getElementById("send");
+    if(!mic||!input||!sendBtn)return;
+    const Recognition=window.SpeechRecognition||window.webkitSpeechRecognition;
+    if(!Recognition){mic.title="Voice input is not supported";mic.onclick=()=>alert("Voice input is not supported in this browser. Please use Chrome on Android.");return;}
+    const rec=new Recognition(); rec.continuous=false; rec.interimResults=true; rec.lang="hi-IN";
+    let listening=false,finalText="";
+    mic.onclick=()=>{if(listening){rec.stop();return;} finalText=""; try{rec.start();}catch(e){}};
+    rec.onstart=()=>{listening=true;mic.classList.add("listening");mic.setAttribute("aria-label","Stop voice input");};
+    rec.onresult=e=>{let interim="";for(let i=e.resultIndex;i<e.results.length;i++){const t=e.results[i][0].transcript;if(e.results[i].isFinal)finalText+=t+" ";else interim+=t;}input.value=(finalText+interim).trim();};
+    rec.onerror=()=>{listening=false;mic.classList.remove("listening");mic.setAttribute("aria-label","Ask by voice");};
+    rec.onend=()=>{listening=false;mic.classList.remove("listening");mic.setAttribute("aria-label","Ask by voice");if(input.value.trim()&&finalText.trim())setTimeout(()=>sendBtn.click(),120);};
+  }
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",initVoice);else initVoice();
+})();
+</script>
+
+
+<script id="premium-3d-motion">
+(function(){
+  function initPremium3D(){
+    // Three.js particle field / glowing nodes.
+    if(window.THREE && !window.__sandeepThreeStarted){
+      window.__sandeepThreeStarted=true;
+      const canvas=document.getElementById("three-bg");
+      if(canvas){
+        const scene=new THREE.Scene();
+        const camera=new THREE.PerspectiveCamera(55,innerWidth/innerHeight,.1,1000);
+        camera.position.z=8;
+        const renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true});
+        renderer.setPixelRatio(Math.min(devicePixelRatio,1.6));
+        renderer.setSize(innerWidth,innerHeight,false);
+
+        const count=700;
+        const geo=new THREE.BufferGeometry();
+        const pos=new Float32Array(count*3);
+        for(let i=0;i<count;i++){
+          const i3=i*3;
+          pos[i3]=(Math.random()-.5)*18;
+          pos[i3+1]=(Math.random()-.5)*11;
+          pos[i3+2]=(Math.random()-.5)*12;
+        }
+        geo.setAttribute("position",new THREE.BufferAttribute(pos,3));
+        const mat=new THREE.PointsMaterial({
+          color:0x55ddff,
+          size:.028,
+          transparent:true,
+          opacity:.65,
+          depthWrite:false
+        });
+        const points=new THREE.Points(geo,mat);
+        scene.add(points);
+
+        const ringGeo=new THREE.TorusKnotGeometry(1.55,.035,180,12,2,3);
+        const ringMat=new THREE.MeshBasicMaterial({
+          color:0x8d6cff,
+          wireframe:true,
+          transparent:true,
+          opacity:.18
+        });
+        const knot=new THREE.Mesh(ringGeo,ringMat);
+        knot.position.set(0,0,-2);
+        scene.add(knot);
+
+        let mx=0,my=0;
+        addEventListener("pointermove",e=>{
+          mx=(e.clientX/innerWidth-.5)*.35;
+          my=(e.clientY/innerHeight-.5)*.25;
+        },{passive:true});
+
+        function resize(){
+          camera.aspect=innerWidth/innerHeight;
+          camera.updateProjectionMatrix();
+          renderer.setSize(innerWidth,innerHeight,false);
+        }
+        addEventListener("resize",resize,{passive:true});
+
+        function tick(t){
+          points.rotation.y=t*.000025+mx;
+          points.rotation.x=t*.000012+my;
+          knot.rotation.x=t*.00035;
+          knot.rotation.y=t*.0005;
+          camera.position.x+=(mx*2-camera.position.x)*.025;
+          camera.position.y+=(-my*2-camera.position.y)*.025;
+          camera.lookAt(0,0,0);
+          renderer.render(scene,camera);
+          requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+      }
+    }
+
+    // GSAP entrance + scroll animation.
+    if(window.gsap){
+      if(window.ScrollTrigger) gsap.registerPlugin(ScrollTrigger);
+      const candidates=[...document.querySelectorAll(
+        "section, .card, .project-card, .skill-card, .timeline-item, .stat, .hero-card"
+      )].filter(el=>!el.closest("#sandeep-ai"));
+      candidates.slice(0,80).forEach((el,i)=>{
+        if(el.dataset.gsapReady) return;
+        el.dataset.gsapReady="1";
+        el.classList.add("premium-tilt");
+        if(window.ScrollTrigger){
+          gsap.fromTo(el,{opacity:0,y:28,rotateX:4},{
+            opacity:1,y:0,rotateX:0,duration:.75,delay:Math.min(i*.015,.18),
+            ease:"power3.out",scrollTrigger:{trigger:el,start:"top 88%",once:true}
+          });
+        }else{
+          gsap.fromTo(el,{opacity:0,y:24},{opacity:1,y:0,duration:.7,delay:Math.min(i*.02,.2),ease:"power3.out"});
+        }
+      });
+
+      // Lightweight 3D tilt for cards.
+      document.querySelectorAll(".premium-tilt").forEach(card=>{
+        if(card.dataset.tiltReady) return;
+        card.dataset.tiltReady="1";
+        card.addEventListener("pointermove",e=>{
+          const r=card.getBoundingClientRect();
+          const x=(e.clientX-r.left)/r.width-.5;
+          const y=(e.clientY-r.top)/r.height-.5;
+          gsap.to(card,{rotateY:x*5,rotateX:-y*5,duration:.25,ease:"power2.out",overwrite:true});
+        });
+        card.addEventListener("pointerleave",()=>gsap.to(card,{rotateY:0,rotateX:0,duration:.5,ease:"power3.out"}));
+      });
+    }
+  }
+
+  function wait(){
+    if(window.THREE || window.gsap) initPremium3D();
+    else setTimeout(wait,120);
+  }
+  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",wait);
+  else wait();
+})();
+</script>
+
+
+<div style="position:fixed;left:14px;bottom:14px;z-index:5;pointer-events:none;
+font:600 11px/1.2 system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;
+color:rgba(255,255,255,.55);background:rgba(10,12,35,.42);border:1px solid rgba(255,255,255,.08);
+padding:7px 10px;border-radius:999px;backdrop-filter:blur(12px)">React • GSAP • Three.js</div>
 
 </body>
 </html>
