@@ -7,9 +7,15 @@ const app = express();
 const port = Number(process.env.PORT || 3000);
 const model = process.env.OPENAI_MODEL || "gpt-6-luna";
 
-const client = process.env.OPENAI_API_KEY
+/* =========================
+   OPENAI CLIENT
+========================= */
+
+const apiKey = process.env.OPENAI_API_KEY?.trim() || "";
+
+const client = apiKey
   ? new OpenAI({
-      apiKey: process.env.OPENAI_API_KEY
+      apiKey
     })
   : null;
 
@@ -18,9 +24,12 @@ const client = process.env.OPENAI_API_KEY
 ========================= */
 
 app.use((req, res, next) => {
+  const allowedOrigin =
+    "https://sandeep-yadav-webside.onrender.com";
+
   res.header(
     "Access-Control-Allow-Origin",
-    "https://sandeep-yadav-webside.onrender.com"
+    allowedOrigin
   );
 
   res.header(
@@ -44,7 +53,12 @@ app.use((req, res, next) => {
    EXPRESS
 ========================= */
 
-app.use(express.json({ limit: "32kb" }));
+app.use(
+  express.json({
+    limit: "32kb"
+  })
+);
+
 app.use(express.static("."));
 
 /* =========================
@@ -52,6 +66,7 @@ app.use(express.static("."));
 ========================= */
 
 const sessions = new Map();
+
 const MAX_MESSAGES = 12;
 
 /* =========================
@@ -59,15 +74,21 @@ const MAX_MESSAGES = 12;
 ========================= */
 
 const profile = `
-You are Sandeep AI, the friendly AI assistant for Sandeep Yadav's personal portfolio website.
+You are Sandeep AI, the friendly AI assistant
+for Sandeep Yadav's personal portfolio website.
 
-Only provide information about Sandeep Yadav that is included in this profile.
-Do not invent facts, experience, companies, achievements, education details,
-projects, salary, job history, or personal information.
+Only provide information about Sandeep Yadav
+that is included in this profile.
+
+Do not invent facts, experience, companies,
+achievements, education details, projects,
+salary, job history, certifications, awards,
+or personal information.
 
 PROFILE:
 
-Name: Sandeep Yadav
+Name:
+Sandeep Yadav
 
 Profession:
 Software Engineer | Web Developer | Technology Enthusiast
@@ -131,23 +152,30 @@ BEHAVIOR:
 
 Be friendly, professional and concise.
 
-If someone asks "Who is Sandeep?" explain his profession,
-education, technical skills and professional focus.
+If someone asks:
+"Who is Sandeep?"
+explain his profession, education,
+technical skills and professional focus.
 
-If someone asks about skills, list the relevant technical skills.
+If someone asks about skills,
+list the relevant technical skills.
 
-If someone asks about projects, explain the projects listed above.
+If someone asks about projects,
+explain the projects listed above.
 
-If someone asks for contact information, provide the relevant contact
-information from this profile.
+If someone asks for contact information,
+provide the relevant contact information
+from this profile.
 
-If someone asks something that is not present in this profile,
-say that the information is not available in Sandeep's portfolio profile.
+If someone asks something that is not present
+in this profile, say that the information is
+not available in Sandeep's portfolio profile.
 
-Never claim that Sandeep has worked for a company unless that company
-is explicitly listed in this profile.
+Never claim that Sandeep has worked for a company
+unless that company is explicitly listed in this profile.
 
-Never invent salary, job experience, certifications, awards or achievements.
+Never invent salary, job experience,
+certifications, awards or achievements.
 `;
 
 /* =========================
@@ -155,9 +183,23 @@ Never invent salary, job experience, certifications, awards or achievements.
 ========================= */
 
 app.get("/api/health", (req, res) => {
+  const currentKey =
+    process.env.OPENAI_API_KEY?.trim() || "";
+
   res.json({
     status: "ok",
-    aiConfigured: Boolean(client),
+
+    aiConfigured:
+      currentKey.length > 0,
+
+    keyLength:
+      currentKey.length,
+
+    keyStartsWith:
+      currentKey.length > 0
+        ? currentKey.slice(0, 3)
+        : null,
+
     model
   });
 });
@@ -168,9 +210,13 @@ app.get("/api/health", (req, res) => {
 
 app.post("/api/chat", async (req, res) => {
   try {
-    if (!client) {
+    const currentKey =
+      process.env.OPENAI_API_KEY?.trim() || "";
+
+    if (!currentKey || !client) {
       return res.status(503).json({
-        error: "OPENAI_API_KEY is not configured."
+        error:
+          "OPENAI_API_KEY is not configured on the server."
       });
     }
 
@@ -197,20 +243,23 @@ app.post("/api/chat", async (req, res) => {
       });
     }
 
-    let history = sessions.get(sessionId) || [];
+    let history =
+      sessions.get(sessionId) || [];
 
     history.push({
       role: "user",
       content: message
     });
 
-    history = history.slice(-MAX_MESSAGES);
+    history =
+      history.slice(-MAX_MESSAGES);
 
-    const response = await client.responses.create({
-      model,
-      instructions: profile,
-      input: history
-    });
+    const response =
+      await client.responses.create({
+        model,
+        instructions: profile,
+        input: history
+      });
 
     const reply =
       response.output_text ||
@@ -226,16 +275,21 @@ app.post("/api/chat", async (req, res) => {
       history.slice(-MAX_MESSAGES)
     );
 
-    res.json({
+    return res.json({
       reply,
       sessionId
     });
 
   } catch (error) {
-    console.error("AI error:", error);
 
-    res.status(500).json({
-      error: "AI assistant is temporarily unavailable."
+    console.error(
+      "AI CHAT ERROR:",
+      error?.message || error
+    );
+
+    return res.status(500).json({
+      error:
+        "AI assistant is temporarily unavailable."
     });
   }
 });
@@ -244,49 +298,63 @@ app.post("/api/chat", async (req, res) => {
    ASSIGNMENT BATCH API
 ========================= */
 
-app.post("/api/assignment/batch", async (req, res) => {
-  try {
-    if (!client) {
-      return res.status(503).json({
-        error: "OPENAI_API_KEY is not configured."
-      });
-    }
+app.post(
+  "/api/assignment/batch",
+  async (req, res) => {
 
-    const questions = Array.isArray(req.body?.questions)
-      ? req.body.questions.slice(0, 100)
-      : [];
+    try {
 
-    const style = [
-      "concise",
-      "detailed",
-      "exam"
-    ].includes(req.body?.style)
-      ? req.body.style
-      : "concise";
+      const currentKey =
+        process.env.OPENAI_API_KEY?.trim() || "";
 
-    if (!questions.length) {
-      return res.status(400).json({
-        error: "No questions supplied."
-      });
-    }
+      if (!currentKey || !client) {
+        return res.status(503).json({
+          error:
+            "OPENAI_API_KEY is not configured."
+        });
+      }
 
-    const instruction =
-      style === "exam"
-        ? "Give a clear exam-ready answer. Use steps, definitions, formulas or examples when useful."
-        : style === "detailed"
-        ? "Give a correct answer with a useful explanation. Keep it focused."
-        : "Give a concise, correct answer. Avoid unnecessary detail.";
+      const questions =
+        Array.isArray(req.body?.questions)
+          ? req.body.questions.slice(0, 100)
+          : [];
 
-    const numbered = questions
-      .map(
-        (q, i) =>
-          `${i + 1}. ${String(q).slice(0, 5000)}`
-      )
-      .join("\n");
+      const style =
+        [
+          "concise",
+          "detailed",
+          "exam"
+        ].includes(req.body?.style)
+          ? req.body.style
+          : "concise";
 
-    const response = await client.responses.create({
-      model,
-      instructions: `
+      if (!questions.length) {
+        return res.status(400).json({
+          error:
+            "No questions supplied."
+        });
+      }
+
+      const instruction =
+        style === "exam"
+          ? "Give a clear exam-ready answer. Use steps, definitions, formulas or examples when useful."
+          : style === "detailed"
+          ? "Give a correct answer with a useful explanation. Keep it focused."
+          : "Give a concise, correct answer. Avoid unnecessary detail.";
+
+      const numbered =
+        questions
+          .map(
+            (question, index) =>
+              `${index + 1}. ${String(question).slice(0, 5000)}`
+          )
+          .join("\n");
+
+      const response =
+        await client.responses.create({
+          model,
+
+          instructions: `
 You are an assignment answer engine.
 
 ${instruction}
@@ -309,54 +377,91 @@ Do not invent facts.
 If a question is ambiguous,
 state the reasonable assumption briefly.
 `,
-      input: numbered
-    });
 
-    let parsed;
+          input: numbered
+        });
 
-    try {
-      parsed = JSON.parse(response.output_text);
-    } catch {
-      return res.status(502).json({
+      let parsed;
+
+      try {
+
+        parsed =
+          JSON.parse(
+            response.output_text
+          );
+
+      } catch {
+
+        return res.status(502).json({
+          error:
+            "The AI returned an invalid batch format. Retry this batch."
+        });
+      }
+
+      const items =
+        Array.isArray(parsed.answers)
+          ? parsed.answers
+          : [];
+
+      const answers =
+        questions.map(
+          (question, index) => ({
+            question,
+
+            answer:
+              items[index]?.answer ||
+              "No answer returned."
+          })
+        );
+
+      return res.json({
+        answers
+      });
+
+    } catch (error) {
+
+      console.error(
+        "ASSIGNMENT BATCH ERROR:",
+        error?.message || error
+      );
+
+      return res.status(500).json({
         error:
-          "The AI returned an invalid batch format. Retry this batch."
+          "Assignment batch temporarily failed."
       });
     }
-
-    const items = Array.isArray(parsed.answers)
-      ? parsed.answers
-      : [];
-
-    const answers = questions.map((question, index) => ({
-      question,
-      answer:
-        items[index]?.answer ||
-        "No answer returned."
-    }));
-
-    res.json({
-      answers
-    });
-
-  } catch (error) {
-    console.error(
-      "Assignment batch error:",
-      error
-    );
-
-    res.status(500).json({
-      error:
-        "Assignment batch temporarily failed."
-    });
   }
+);
+
+/* =========================
+   404 API HANDLER
+========================= */
+
+app.use("/api", (req, res) => {
+  res.status(404).json({
+    error: "API endpoint not found."
+  });
 });
 
 /* =========================
    START SERVER
 ========================= */
 
-app.listen(port, () => {
-  console.log(
-    `Sandeep AI server running on port ${port}`
-  );
-});
+app.listen(
+  port,
+  () => {
+    console.log(
+      `Sandeep AI server running on port ${port}`
+    );
+
+    console.log(
+      `OpenAI API key configured: ${Boolean(
+        process.env.OPENAI_API_KEY
+      )}`
+    );
+
+    console.log(
+      `OpenAI model: ${model}`
+    );
+  }
+);
