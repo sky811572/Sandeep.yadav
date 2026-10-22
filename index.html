@@ -239,85 +239,189 @@ footer{padding:35px 0 50px;border-top:1px solid var(--line);color:var(--muted);f
   <form class="ai-input" id="aiForm"><input id="aiText" autocomplete="off" placeholder="Ask something..."><button>Send</button></form>
 </div>
 
+
 <script>
-const BACKEND="https://sandeep-yadav-portfolio.onrender.com/api/chat";
-const navlinks=document.getElementById("navlinks");
-document.getElementById("menuBtn").onclick=()=>navlinks.classList.toggle("open");
-document.querySelectorAll(".navlinks a").forEach(a=>a.onclick=()=>navlinks.classList.remove("open"));
+document.addEventListener("DOMContentLoaded", function () {
+  "use strict";
 
-const topBtn=document.getElementById("top");
-window.addEventListener("scroll",()=>topBtn.style.display=scrollY>500?"block":"none");
-topBtn.onclick=()=>scrollTo({top:0,behavior:"smooth"});
+  const BACKEND = "https://sandeep-yadav-portfolio.onrender.com/api/chat";
 
-const aiPanel=document.getElementById("aiPanel");
-document.getElementById("aiOpen").onclick=()=>aiPanel.classList.add("open");
-document.getElementById("aiClose").onclick=()=>aiPanel.classList.remove("open");
+  const menuBtn = document.getElementById("menuBtn");
+  const navlinks = document.getElementById("navlinks");
 
-let sessionId=localStorage.getItem("sandeep_ai_session");
-if(!sessionId){sessionId=cryptoRandom();localStorage.setItem("sandeep_ai_session",sessionId)}
-
-function cryptoRandom(){
-  return "web-"+Date.now()+"-"+Math.random().toString(36).slice(2,12);
-}
-
-const messages=document.getElementById("aiMessages");
-const input=document.getElementById("aiText");
-
-function addMessage(text,type){
-  const d=document.createElement("div");
-  d.className="msg "+type;
-  d.textContent=text;
-  messages.appendChild(d);
-  messages.scrollTop=messages.scrollHeight;
-}
-
-function freeReply(q){
-  const s=q.toLowerCase();
-  if(s.includes("skill")||s.includes("technology")||s.includes("tech")){
-    return "Sandeep's technical skills include HTML5, CSS3, JavaScript, PHP, MySQL, Python, Java, C, C++, Git, GitHub, Responsive Design, REST/API basics, VS Code, XAMPP and phpMyAdmin.";
-  }
-  if(s.includes("project")){
-    return "Sandeep has worked on a Task Management Dashboard, a Login & Registration System, and responsive web projects using technologies such as HTML, CSS, JavaScript, PHP and MySQL.";
-  }
-  if(s.includes("education")||s.includes("degree")||s.includes("college")||s.includes("aktu")){
-    return "Sandeep completed his B.Tech from Dr. A.P.J. Abdul Kalam Technical University (AKTU), Uttar Pradesh. His journey also includes Class X (66.33%) and Class XII (64.80%) under the UP Board.";
-  }
-  if(s.includes("journey")||s.includes("school")||s.includes("class 1")||s.includes("2009")){
-    return "Sandeep's journey includes Classes 1–8 at Saraswati Gyan Mandir (2009–2015), Class X in 2017 with 66.33%, Class XII in 2021 with 64.80%, followed by B.Tech at AKTU and hands-on web/database projects.";
-  }
-  if(s.includes("contact")||s.includes("email")||s.includes("whatsapp")||s.includes("linkedin")){
-    return "You can contact Sandeep at sky811572@gmail.com or WhatsApp +91 8115728884. LinkedIn: linkedin.com/in/sandeep8115. GitHub: github.com/sky811572.";
-  }
-  return "Sandeep Yadav is a Software Engineer, Web Developer and Technology Enthusiast. He focuses on web development, software engineering, backend/database work and continuous technical growth.";
-}
-
-async function askAI(q){
-  addMessage(q,"user");
-  input.value="";
-  try{
-    const res=await fetch(BACKEND,{
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({message:q,sessionId})
+  if (menuBtn && navlinks) {
+    menuBtn.addEventListener("click", function () {
+      navlinks.classList.toggle("open");
     });
-    const data=await res.json().catch(()=>({}));
-    const reply=data.reply||data.response||data.message||data.output_text||data.text;
-    if(reply && typeof reply==="string" && !/couldn't generate|not connected/i.test(reply)){
-      addMessage(reply,"bot");
-    }else{
-      addMessage(freeReply(q),"bot");
-    }
-  }catch(e){
-    addMessage(freeReply(q),"bot");
+    navlinks.querySelectorAll("a").forEach(function (link) {
+      link.addEventListener("click", function () {
+        navlinks.classList.remove("open");
+      });
+    });
   }
-}
 
-document.getElementById("aiForm").onsubmit=e=>{
-  e.preventDefault();
-  const q=input.value.trim();
-  if(q) askAI(q);
-};
-document.querySelectorAll(".quick button").forEach(b=>b.onclick=()=>askAI(b.dataset.q));
+  const topBtn = document.getElementById("top");
+  function updateTopButton() {
+    if (topBtn) topBtn.style.display = window.scrollY > 500 ? "block" : "none";
+  }
+  window.addEventListener("scroll", updateTopButton, { passive: true });
+  if (topBtn) {
+    topBtn.addEventListener("click", function () {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+    updateTopButton();
+  }
+
+  const revealItems = document.querySelectorAll(".reveal");
+  if ("IntersectionObserver" in window && revealItems.length) {
+    const observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("show");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    revealItems.forEach(function (item) { observer.observe(item); });
+  } else {
+    revealItems.forEach(function (item) { item.classList.add("show"); });
+  }
+
+  const navAnchors = Array.from(document.querySelectorAll('.navlinks a[href^="#"]'));
+  const sections = navAnchors.map(function (a) {
+    return document.querySelector(a.getAttribute("href"));
+  }).filter(Boolean);
+
+  if ("IntersectionObserver" in window && sections.length) {
+    const sectionObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          navAnchors.forEach(function (a) {
+            a.classList.toggle("active", a.getAttribute("href") === "#" + entry.target.id);
+          });
+        }
+      });
+    }, { rootMargin: "-30% 0px -60% 0px" });
+    sections.forEach(function (section) { sectionObserver.observe(section); });
+  }
+
+  const aiOpen = document.getElementById("aiOpen");
+  const aiClose = document.getElementById("aiClose");
+  const aiPanel = document.getElementById("aiPanel");
+  const aiForm = document.getElementById("aiForm");
+  const aiText = document.getElementById("aiText");
+  const aiMessages = document.getElementById("aiMessages");
+
+  let sessionId = localStorage.getItem("sandeep_ai_session");
+  if (!sessionId) {
+    sessionId = "web-" + Date.now() + "-" + Math.random().toString(36).slice(2, 12);
+    localStorage.setItem("sandeep_ai_session", sessionId);
+  }
+
+  if (aiOpen) aiOpen.addEventListener("click", function () {
+    if (aiPanel) aiPanel.classList.add("open");
+    if (aiText) setTimeout(function () { aiText.focus(); }, 100);
+  });
+
+  if (aiClose) aiClose.addEventListener("click", function () {
+    if (aiPanel) aiPanel.classList.remove("open");
+  });
+
+  function addMessage(text, type) {
+    if (!aiMessages) return;
+    const el = document.createElement("div");
+    el.className = "msg " + type;
+    el.textContent = String(text);
+    aiMessages.appendChild(el);
+    aiMessages.scrollTop = aiMessages.scrollHeight;
+  }
+
+  function freeReply(question) {
+    const q = String(question || "").toLowerCase();
+
+    if (q.includes("skill") || q.includes("technology") || q.includes("tech")) {
+      return "Sandeep's technical skills include HTML5, CSS3, JavaScript, PHP, MySQL, Python, Java, C, C++, Git, GitHub, Responsive Design, REST/API basics, VS Code, XAMPP and phpMyAdmin.";
+    }
+    if (q.includes("project") || q.includes("work")) {
+      return "Sandeep has worked on a Task Management Dashboard, a Login & Registration System, and responsive web projects using HTML, CSS, JavaScript, PHP and MySQL.";
+    }
+    if (q.includes("education") || q.includes("degree") || q.includes("college") || q.includes("aktu")) {
+      return "Sandeep completed his B.Tech from Dr. A.P.J. Abdul Kalam Technical University (AKTU), Uttar Pradesh. He completed Class X with 66.33% and Class XII with 64.80% under the UP Board.";
+    }
+    if (q.includes("journey") || q.includes("school") || q.includes("2009") || q.includes("2015")) {
+      return "Sandeep's journey includes Classes 1–8 at Saraswati Gyan Mandir from 2009–2015 under the NCERT Curriculum, Class X in 2017 with 66.33%, Class XII in 2021 with 64.80%, followed by B.Tech at AKTU and hands-on web/database projects.";
+    }
+    if (q.includes("contact") || q.includes("email") || q.includes("whatsapp") || q.includes("linkedin") || q.includes("github")) {
+      return "You can contact Sandeep at sky811572@gmail.com or WhatsApp +91 8115728884. LinkedIn: linkedin.com/in/sandeep8115. GitHub: github.com/sky811572.";
+    }
+    return "Sandeep Yadav is a Software Engineer, Web Developer and Technology Enthusiast. Ask me about his skills, projects, education, journey or contact details.";
+  }
+
+  async function askAI(question) {
+    const q = String(question || "").trim();
+    if (!q) return;
+
+    addMessage(q, "user");
+    if (aiText) aiText.value = "";
+
+    let answered = false;
+
+    try {
+      const controller = new AbortController();
+      const timer = setTimeout(function () { controller.abort(); }, 8000);
+
+      const response = await fetch(BACKEND, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: q, sessionId: sessionId }),
+        signal: controller.signal
+      });
+
+      clearTimeout(timer);
+
+      if (response.ok) {
+        const data = await response.json().catch(function () { return {}; });
+        const reply = data.reply || data.response || data.output_text || data.text ||
+          (typeof data.message === "string" ? data.message : "");
+
+        if (typeof reply === "string" && reply.trim() &&
+            !/couldn't generate|not connected yet|api key|credits remaining/i.test(reply)) {
+          addMessage(reply.trim(), "bot");
+          answered = true;
+        }
+      }
+    } catch (error) {
+      console.log("Sandeep AI free mode:", error);
+    }
+
+    if (!answered) addMessage(freeReply(q), "bot");
+  }
+
+  if (aiForm) {
+    aiForm.addEventListener("submit", function (event) {
+      event.preventDefault();
+      if (aiText && aiText.value.trim()) askAI(aiText.value.trim());
+    });
+  }
+
+  document.querySelectorAll(".quick button[data-q]").forEach(function (button) {
+    button.addEventListener("click", function () {
+      askAI(button.getAttribute("data-q") || "");
+    });
+  });
+
+  if (aiText) {
+    aiText.addEventListener("keydown", function (event) {
+      if (event.key === "Enter" && !event.shiftKey) {
+        event.preventDefault();
+        if (aiForm) aiForm.requestSubmit();
+      }
+    });
+  }
+
+  console.log("Sandeep Portfolio JavaScript loaded successfully.");
+});
 </script>
+
 </body>
 </html>
