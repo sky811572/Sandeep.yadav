@@ -1,42 +1,20 @@
 import express from "express";
-import OpenAI from "openai";
-import crypto from "node:crypto";
 
 const app = express();
-
 const port = Number(process.env.PORT || 3000);
-const model = process.env.OPENAI_MODEL || "gpt-6-luna";
 
-/* =========================
-   OPENAI CLIENT
-========================= */
+app.use(express.json({ limit: "32kb" }));
 
-const apiKey = process.env.OPENAI_API_KEY?.trim() || "";
-
-const client = apiKey
-  ? new OpenAI({
-      apiKey
-    })
-  : null;
-
-/* =========================
-   CORS
-========================= */
-
+// CORS
 app.use((req, res, next) => {
-  const allowedOrigin =
-    "https://sandeep-yadav-webside.onrender.com";
-
   res.header(
     "Access-Control-Allow-Origin",
-    allowedOrigin
+    "https://sandeep-yadav-webside.onrender.com"
   );
-
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept"
   );
-
   res.header(
     "Access-Control-Allow-Methods",
     "GET, POST, OPTIONS"
@@ -49,419 +27,390 @@ app.use((req, res, next) => {
   next();
 });
 
-/* =========================
-   EXPRESS
-========================= */
-
-app.use(
-  express.json({
-    limit: "32kb"
-  })
-);
-
 app.use(express.static("."));
 
-/* =========================
-   AI SESSION STORAGE
-========================= */
-
-const sessions = new Map();
-
-const MAX_MESSAGES = 12;
-
-/* =========================
+/* =========================================================
    SANDEEP PROFILE
-========================= */
+========================================================= */
 
-const profile = `
-You are Sandeep AI, the friendly AI assistant
-for Sandeep Yadav's personal portfolio website.
+const profile = {
+  name: "Sandeep Yadav",
+  role: "Software Engineer | Web Developer | Technology Enthusiast",
 
-Only provide information about Sandeep Yadav
-that is included in this profile.
+  education:
+    "B.Tech from Dr. A.P.J. Abdul Kalam Technical University (AKTU), Uttar Pradesh.",
 
-Do not invent facts, experience, companies,
-achievements, education details, projects,
-salary, job history, certifications, awards,
-or personal information.
+  school:
+    "Saraswati Gyan Mandir",
 
-PROFILE:
+  journey: {
+    classes1to8: "2009 – 2015 — Saraswati Gyan Mandir — NCERT Curriculum",
+    class10: "2017 — Class X — High School — UP Board — 66.33%",
+    class12: "2021 — Class XII — Intermediate — UP Board — 64.80%",
+    college: "B.Tech — Dr. A.P.J. Abdul Kalam Technical University (AKTU)"
+  },
 
-Name:
-Sandeep Yadav
+  skills: [
+    "HTML5",
+    "CSS3",
+    "JavaScript",
+    "PHP",
+    "MySQL",
+    "Python",
+    "Java",
+    "C",
+    "C++",
+    "Git",
+    "GitHub",
+    "Responsive Design",
+    "REST/API Basics",
+    "Visual Studio Code",
+    "XAMPP",
+    "phpMyAdmin"
+  ],
 
-Profession:
-Software Engineer | Web Developer | Technology Enthusiast
+  projects: [
+    "Task Management Dashboard",
+    "Login & Registration System",
+    "Responsive Web Projects"
+  ],
 
-Education:
-B.Tech from Dr. A.P.J. Abdul Kalam Technical University (AKTU), Uttar Pradesh.
+  focus: [
+    "Web Development",
+    "Software Engineering",
+    "Backend & Database",
+    "Continuous Growth"
+  ],
 
-Technical Skills:
-HTML5
-CSS3
-JavaScript
-PHP
-MySQL
-Python
-Java
-C
-C++
-Git
-GitHub
-Responsive Web Design
-REST/API Basics
-Visual Studio Code
-XAMPP
-phpMyAdmin
+  email: "sky811572@gmail.com",
 
-Professional Focus:
-Web Development
-Software Engineering
-Backend & Database
-Continuous Learning and Growth
+  whatsapp: "https://wa.me/918115728884",
 
-Projects:
+  linkedin: "https://www.linkedin.com/in/sandeep8115",
+
+  instagram: "https://www.instagram.com/sandeep_yadav_0.7_/",
+
+  github: "https://github.com/sky811572",
+
+  linktree: "https://linktr.ee/sandeep_yadav_07"
+};
+
+
+/* =========================================================
+   FREE AI RESPONSE ENGINE
+========================================================= */
+
+function getFreeAIResponse(message) {
+  const text = String(message || "").trim().toLowerCase();
+
+  if (!text) {
+    return "Please ask me something about Sandeep.";
+  }
+
+  // Greeting
+  if (
+    /^(hi|hello|hey|hii|hola|namaste|good morning|good afternoon|good evening)\b/i.test(
+      text
+    )
+  ) {
+    return `Hi! 👋 I'm Sandeep AI.
+
+I can tell you about Sandeep's:
+• Skills
+• Education
+• Projects
+• Career focus
+• Contact details
+
+What would you like to know?`;
+  }
+
+  // Who is Sandeep?
+  if (
+    text.includes("who is sandeep") ||
+    text.includes("about sandeep") ||
+    text.includes("tell me about sandeep") ||
+    text.includes("sandeep kaun")
+  ) {
+    return `Sandeep Yadav is a Software Engineer, Web Developer, and Technology Enthusiast.
+
+He has a B.Tech background from Dr. A.P.J. Abdul Kalam Technical University (AKTU), Uttar Pradesh.
+
+His main focus areas are Web Development, Software Engineering, Backend & Database development, and continuous learning.`;
+  }
+
+  // Skills
+  if (
+    text.includes("skill") ||
+    text.includes("technology") ||
+    text.includes("technologies") ||
+    text.includes("programming") ||
+    text.includes("language")
+  ) {
+    return `Sandeep's technical skills include:
+
+• HTML5
+• CSS3
+• JavaScript
+• PHP
+• MySQL
+• Python
+• Java
+• C
+• C++
+• Git & GitHub
+• Responsive Design
+• REST/API Basics
+• VS Code
+• XAMPP
+• phpMyAdmin`;
+  }
+
+  // Education
+  if (
+    text.includes("education") ||
+    text.includes("qualification") ||
+    text.includes("degree") ||
+    text.includes("college") ||
+    text.includes("university") ||
+    text.includes("aktu")
+  ) {
+    return `Sandeep's education journey:
+
+• 2009–2015 — Classes 1–8, Saraswati Gyan Mandir, NCERT Curriculum
+• 2017 — Class X, UP Board — 66.33%
+• 2021 — Class XII, UP Board — 64.80%
+• B.Tech — Dr. A.P.J. Abdul Kalam Technical University (AKTU), Uttar Pradesh`;
+  }
+
+  // School
+  if (
+    text.includes("school") ||
+    text.includes("class 1") ||
+    text.includes("class 8") ||
+    text.includes("2009") ||
+    text.includes("2015")
+  ) {
+    return `Sandeep studied Classes 1–8 from 2009 to 2015 at Saraswati Gyan Mandir under the NCERT Curriculum.`;
+  }
+
+  // Class 10
+  if (
+    text.includes("class 10") ||
+    text.includes("10th") ||
+    text.includes("high school") ||
+    text.includes("66.33")
+  ) {
+    return `Sandeep completed Class X (High School) in 2017 under the UP Board with 66.33%.`;
+  }
+
+  // Class 12
+  if (
+    text.includes("class 12") ||
+    text.includes("12th") ||
+    text.includes("intermediate") ||
+    text.includes("64.80")
+  ) {
+    return `Sandeep completed Class XII (Intermediate) in 2021 under the UP Board with 64.80%.`;
+  }
+
+  // Projects
+  if (
+    text.includes("project") ||
+    text.includes("projects") ||
+    text.includes("work")
+  ) {
+    return `Sandeep has worked on projects including:
+
 1. Task Management Dashboard
 2. Login & Registration System
 3. Responsive Web Projects
 
-Education Journey:
-2009 – 2015: Classes 1–8, Saraswati Gyan Mandir, NCERT Curriculum
-2017: Class X, High School, UP Board — 66.33%
-2021: Class XII, Intermediate, UP Board — 64.80%
-B.Tech: Dr. A.P.J. Abdul Kalam Technical University (AKTU)
+These projects involve frontend development, backend development, databases, authentication, and responsive UI development.`;
+  }
 
-Contact:
-Email: sky811572@gmail.com
-WhatsApp: +91 8115728884
-LinkedIn: https://www.linkedin.com/in/sandeep8115
-Instagram: https://www.instagram.com/sandeep_yadav_0.7_/
-GitHub: https://github.com/sky811572
-Linktree: https://linktr.ee/sandeep_yadav_07
+  // Task dashboard
+  if (
+    text.includes("task management") ||
+    text.includes("todo") ||
+    text.includes("to-do") ||
+    text.includes("task dashboard")
+  ) {
+    return `Sandeep's Task Management Dashboard is a web-based project designed to manage tasks with features such as task creation, descriptions, dates, status management, and database integration.`;
+  }
 
-Website:
-https://sandeep-yadav-webside.onrender.com
+  // Career / focus
+  if (
+    text.includes("career") ||
+    text.includes("focus") ||
+    text.includes("professional") ||
+    text.includes("developer")
+  ) {
+    return `Sandeep's professional focus includes:
 
-GitHub username:
-sky811572
+• Web Development
+• Software Engineering
+• Backend & Database
+• Building practical software projects
+• Continuous technical growth`;
+  }
 
-GitHub repository:
-sky811572/Sandeep.yadav
+  // GitHub
+  if (text.includes("github")) {
+    return `You can explore Sandeep's GitHub projects here:
 
-BEHAVIOR:
+${profile.github}`;
+  }
 
-Be friendly, professional and concise.
+  // LinkedIn
+  if (text.includes("linkedin")) {
+    return `You can connect with Sandeep on LinkedIn:
 
-If someone asks:
-"Who is Sandeep?"
-explain his profession, education,
-technical skills and professional focus.
+${profile.linkedin}`;
+  }
 
-If someone asks about skills,
-list the relevant technical skills.
+  // Instagram
+  if (text.includes("instagram")) {
+    return `Sandeep's Instagram:
 
-If someone asks about projects,
-explain the projects listed above.
+${profile.instagram}`;
+  }
 
-If someone asks for contact information,
-provide the relevant contact information
-from this profile.
+  // Contact
+  if (
+    text.includes("contact") ||
+    text.includes("email") ||
+    text.includes("reach") ||
+    text.includes("phone") ||
+    text.includes("whatsapp")
+  ) {
+    return `You can contact Sandeep through:
 
-If someone asks something that is not present
-in this profile, say that the information is
-not available in Sandeep's portfolio profile.
+📧 Email: ${profile.email}
 
-Never claim that Sandeep has worked for a company
-unless that company is explicitly listed in this profile.
+💬 WhatsApp:
+${profile.whatsapp}
 
-Never invent salary, job experience,
-certifications, awards or achievements.
-`;
+💼 LinkedIn:
+${profile.linkedin}`;
+  }
 
-/* =========================
+  // Resume
+  if (
+    text.includes("resume") ||
+    text.includes("cv") ||
+    text.includes("experience")
+  ) {
+    return `Sandeep is a Software Engineer focused on Web Development, Backend & Database technologies, and practical software projects.
+
+For professional details, you can connect with him on LinkedIn:
+${profile.linkedin}`;
+  }
+
+  // Thanks
+  if (
+    text.includes("thank") ||
+    text.includes("thanks") ||
+    text === "thx"
+  ) {
+    return `You're welcome! 😊
+
+If you want to know more about Sandeep's skills, projects, education, or contact details, just ask me.`;
+  }
+
+  // Default
+  return `I'm Sandeep AI 🤖
+
+I can answer questions about Sandeep's:
+
+• Skills
+• Education
+• Projects
+• Career focus
+• GitHub
+• LinkedIn
+• Contact details
+
+Try asking:
+"What are Sandeep's skills?"
+or
+"Tell me about Sandeep's projects."`;
+}
+
+
+/* =========================================================
    HEALTH CHECK
-========================= */
+========================================================= */
 
 app.get("/api/health", (req, res) => {
-  const currentKey =
-    process.env.OPENAI_API_KEY?.trim() || "";
-
   res.json({
     status: "ok",
-
-    aiConfigured:
-      currentKey.length > 0,
-
-    keyLength:
-      currentKey.length,
-
-    keyStartsWith:
-      currentKey.length > 0
-        ? currentKey.slice(0, 3)
-        : null,
-
-    model
+    mode: "free",
+    aiConfigured: false,
+    message: "Sandeep AI is running in free mode."
   });
 });
 
-/* =========================
-   AI CHAT
-========================= */
 
-app.post("/api/chat", async (req, res) => {
+/* =========================================================
+   CHAT API
+========================================================= */
+
+app.post("/api/chat", (req, res) => {
   try {
-    const currentKey =
-      process.env.OPENAI_API_KEY?.trim() || "";
+    const { message } = req.body || {};
 
-    if (!currentKey || !client) {
-      return res.status(503).json({
-        error:
-          "OPENAI_API_KEY is not configured on the server."
-      });
-    }
-
-    const message =
-      typeof req.body?.message === "string"
-        ? req.body.message.trim()
-        : "";
-
-    const sessionId =
-      typeof req.body?.sessionId === "string" &&
-      req.body.sessionId.trim()
-        ? req.body.sessionId.trim()
-        : crypto.randomUUID();
-
-    if (!message) {
+    if (!message || typeof message !== "string") {
       return res.status(400).json({
         error: "Message is required."
       });
     }
 
-    if (message.length > 2000) {
-      return res.status(400).json({
-        error: "Message is too long."
-      });
-    }
-
-    let history =
-      sessions.get(sessionId) || [];
-
-    history.push({
-      role: "user",
-      content: message
-    });
-
-    history =
-      history.slice(-MAX_MESSAGES);
-
-    const response =
-      await client.responses.create({
-        model,
-        instructions: profile,
-        input: history
-      });
-
-    const reply =
-      response.output_text ||
-      "I couldn't generate a response right now.";
-
-    history.push({
-      role: "assistant",
-      content: reply
-    });
-
-    sessions.set(
-      sessionId,
-      history.slice(-MAX_MESSAGES)
-    );
+    const response = getFreeAIResponse(message);
 
     return res.json({
-      reply,
-      sessionId
+      success: true,
+      response
     });
 
   } catch (error) {
-
-    console.error(
-      "AI CHAT ERROR:",
-      error?.message || error
-    );
+    console.error("FREE AI ERROR:", error);
 
     return res.status(500).json({
-      error:
-        "AI assistant is temporarily unavailable."
+      error: "Something went wrong. Please try again."
     });
   }
 });
 
-/* =========================
-   ASSIGNMENT BATCH API
-========================= */
 
-app.post(
-  "/api/assignment/batch",
-  async (req, res) => {
+/* =========================================================
+   ASSIGNMENT ENDPOINT
+========================================================= */
 
-    try {
-
-      const currentKey =
-        process.env.OPENAI_API_KEY?.trim() || "";
-
-      if (!currentKey || !client) {
-        return res.status(503).json({
-          error:
-            "OPENAI_API_KEY is not configured."
-        });
-      }
-
-      const questions =
-        Array.isArray(req.body?.questions)
-          ? req.body.questions.slice(0, 100)
-          : [];
-
-      const style =
-        [
-          "concise",
-          "detailed",
-          "exam"
-        ].includes(req.body?.style)
-          ? req.body.style
-          : "concise";
-
-      if (!questions.length) {
-        return res.status(400).json({
-          error:
-            "No questions supplied."
-        });
-      }
-
-      const instruction =
-        style === "exam"
-          ? "Give a clear exam-ready answer. Use steps, definitions, formulas or examples when useful."
-          : style === "detailed"
-          ? "Give a correct answer with a useful explanation. Keep it focused."
-          : "Give a concise, correct answer. Avoid unnecessary detail.";
-
-      const numbered =
-        questions
-          .map(
-            (question, index) =>
-              `${index + 1}. ${String(question).slice(0, 5000)}`
-          )
-          .join("\n");
-
-      const response =
-        await client.responses.create({
-          model,
-
-          instructions: `
-You are an assignment answer engine.
-
-${instruction}
-
-Return ONLY valid JSON:
-
-{
-  "answers": [
-    {
-      "index": 1,
-      "answer": "..."
-    }
-  ]
-}
-
-Answer every numbered question in order.
-
-Do not invent facts.
-
-If a question is ambiguous,
-state the reasonable assumption briefly.
-`,
-
-          input: numbered
-        });
-
-      let parsed;
-
-      try {
-
-        parsed =
-          JSON.parse(
-            response.output_text
-          );
-
-      } catch {
-
-        return res.status(502).json({
-          error:
-            "The AI returned an invalid batch format. Retry this batch."
-        });
-      }
-
-      const items =
-        Array.isArray(parsed.answers)
-          ? parsed.answers
-          : [];
-
-      const answers =
-        questions.map(
-          (question, index) => ({
-            question,
-
-            answer:
-              items[index]?.answer ||
-              "No answer returned."
-          })
-        );
-
-      return res.json({
-        answers
-      });
-
-    } catch (error) {
-
-      console.error(
-        "ASSIGNMENT BATCH ERROR:",
-        error?.message || error
-      );
-
-      return res.status(500).json({
-        error:
-          "Assignment batch temporarily failed."
-      });
-    }
-  }
-);
-
-/* =========================
-   404 API HANDLER
-========================= */
-
-app.use("/api", (req, res) => {
-  res.status(404).json({
-    error: "API endpoint not found."
+app.post("/api/assignment/batch", (req, res) => {
+  res.json({
+    success: true,
+    message:
+      "Assignment service is available in free mode. No OpenAI API credits are required."
   });
 });
 
-/* =========================
+
+/* =========================================================
+   404
+========================================================= */
+
+app.use((req, res) => {
+  res.status(404).json({
+    error: "Endpoint not found."
+  });
+});
+
+
+/* =========================================================
    START SERVER
-========================= */
+========================================================= */
 
-app.listen(
-  port,
-  () => {
-    console.log(
-      `Sandeep AI server running on port ${port}`
-    );
-
-    console.log(
-      `OpenAI API key configured: ${Boolean(
-        process.env.OPENAI_API_KEY
-      )}`
-    );
-
-    console.log(
-      `OpenAI model: ${model}`
-    );
-  }
-);
+app.listen(port, () => {
+  console.log(`Sandeep AI Free Server running on port ${port}`);
+});
